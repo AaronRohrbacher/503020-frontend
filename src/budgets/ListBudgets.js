@@ -13,7 +13,6 @@ const Budget = ({ budgetName }) => (
 class ListBudgets extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       budgets: []
     }
@@ -25,8 +24,6 @@ class ListBudgets extends React.Component {
     this.setState({ budgets });
     console.log(this.state.budgets)
   }
-
-
 
   render() {
     // The markup for the Step 1 UI
