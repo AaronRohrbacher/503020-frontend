@@ -1,14 +1,9 @@
 import React from "react";
 // import Slide from 'react-reveal';
-import { getUserBudgets } from "../services/budgetsService";
+import { readBudgets } from "../services/budgetsService";
+import ReadBudget from "./readBudget"
 
-const Budget = ({ budgetName }) => (
-  <div>
-    <div>
-      <p>{budgetName}</p>
-    </div>
-  </div>
-);
+
 
 class ListBudgets extends React.Component {
   constructor(props) {
@@ -18,11 +13,29 @@ class ListBudgets extends React.Component {
     }
   }
 
+  
+  
+  ViewBudget = (id) => {
+    this.setState({
+      viewingBudget: true,
+      budgetId: id
+    })
+  }
+
+  Budget = ({ budgetName }) => (
+    <div>
+      <div>
+        <p onClick={this.ViewBudget}>{budgetName}</p>
+      </div>
+    </div>
+  );
+
+  
+
   async componentDidMount() {
-    const budgets = await getUserBudgets(JSON.stringify({ userId: "1a" }));
+    const budgets = await readBudgets(JSON.stringify({ userId: "1a" }));
     console.log(budgets)
     this.setState({ budgets });
-    console.log(this.state.budgets)
   }
 
   render() {
@@ -31,13 +44,15 @@ class ListBudgets extends React.Component {
       <div>
 
         {this.state.budgets.map((budget) => (
-          <Budget
+          <this.Budget
             budgetName={`${budget.budgetName}`}
           />
         ))}
+      {this.state.viewingBudget && <ReadBudget />}
+      </div>
 
-        </div>
     )
+
   }
 }
 
