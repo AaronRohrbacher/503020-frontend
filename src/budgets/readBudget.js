@@ -6,21 +6,37 @@ class ReadBudget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      budgetItems: {}
+      budgetItems: [],
+      budgetData: {}
     }
   }
 
+  BudgetItem = ({ budgetItem, cost, dueDate }) => (
+    <div>
+      <div>
+        <p>{budgetItem}</p>
+        <p>{cost} {dueDate}</p>
+      </div>
+    </div>
+  );
+
+
   async componentDidMount() {
-    const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: "1681170857125.3193" }));
-    console.log(budgetItems)
-    this.setState({ budgetItems });
+    const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: "1a" }));    
+    this.setState({ budgetData: budgetItems });
+    this.setState({ budgetItems: budgetItems.BudgetItems})
   }
 
   render() {
     return (
       <div>
-                {this.state.budgetItems.currentMonth}
-
+        {this.state.budgetItems.map((item) => (
+          <this.BudgetItem
+            budgetItem={`${item.name}`}
+            cost={`${item.cost}`}
+            dueDate={`${this.state.budgetData.currentMonth} ${item.dueDate}`}
+          />
+        ))}
       </div>
     )
   }
