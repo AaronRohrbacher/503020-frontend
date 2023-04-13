@@ -20,7 +20,6 @@ class ReadBudget extends React.Component {
     </div>
   );
 
-
   async componentDidMount() {
     const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: "1a" }));    
     this.setState({ budgetData: budgetItems });

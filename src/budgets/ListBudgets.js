@@ -1,7 +1,7 @@
 import React from "react";
-// import Slide from 'react-reveal';
 import { readBudgets } from "../services/budgetsService";
 import ReadBudget from "./readBudget"
+import CreateBudget from "./CreateBudget"
 
 
 
@@ -9,7 +9,8 @@ class ListBudgets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      budgets: []
+      budgets: [],
+      creatingBudget: false
     }
   }
 
@@ -19,6 +20,13 @@ class ListBudgets extends React.Component {
     this.setState({
       viewingBudget: true,
       budgetId: id
+    })
+  }
+
+  beginCreateBudget = (id) => {
+    this.setState({
+      creatingBudget: true,
+      userId: id
     })
   }
 
@@ -39,15 +47,16 @@ class ListBudgets extends React.Component {
   }
 
   render() {
-    // The markup for the Step 1 UI
     return (
       <div>
+      <p onClick={this.beginCreateBudget}>Create Budget</p>
 
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
           />
         ))}
+      {this.state.creatingBudget && !this.state.submitted && <CreateBudget />}
       {this.state.viewingBudget && <ReadBudget />}
       </div>
 

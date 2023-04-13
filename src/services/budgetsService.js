@@ -1,3 +1,14 @@
+export async function createBudget(obj) {
+    const json = JSON.stringify(obj)
+    const response = await fetch(`http://localhost:3000/createBudget`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: json 
+  })
+  const data = await response.json();
+  return data
+}
+
 export async function readBudgets(userId) {
   const response = await fetch(`http://localhost:3000/readBudgets`, {
     method: 'POST',
