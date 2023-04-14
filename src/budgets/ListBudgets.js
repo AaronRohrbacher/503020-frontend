@@ -1,21 +1,17 @@
-import React from "react";
-import { readBudgets } from "../services/budgetsService";
-import ReadBudget from "./readBudget"
-import CreateBudget from "./CreateBudget"
-
-
+import React from 'react'
+import { readBudgets } from '../services/budgetsService'
+import ReadBudget from './readBudget'
+import CreateBudget from './CreateBudget'
 
 class ListBudgets extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       budgets: [],
       creatingBudget: false
     }
   }
 
-  
-  
   ViewBudget = (id) => {
     this.setState({
       viewingBudget: true,
@@ -36,33 +32,36 @@ class ListBudgets extends React.Component {
         <p onClick={this.ViewBudget}>{budgetName}</p>
       </div>
     </div>
-  );
+  )
 
-  
-
-  async componentDidMount() {
-    const budgets = await readBudgets(JSON.stringify({ userId: "1a" }));
-    console.log(budgets)
-    this.setState({ budgets });
+  async componentDidMount () {
+    const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
+    this.setState({ budgets })
   }
 
-  render() {
+  renderList () {
     return (
       <div>
-      <p onClick={this.beginCreateBudget}>Create Budget</p>
+        <p onClick={this.beginCreateBudget}>Create Budget</p>
 
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
           />
         ))}
-      {this.state.creatingBudget && !this.state.submitted && <CreateBudget />}
-      {this.state.viewingBudget && <ReadBudget />}
       </div>
-
     )
+  }
 
+  render () {
+    return (
+      <div>
+        {this.state.creatingBudget === false && this.renderList()}
+        {this.state.creatingBudget && !this.state.submitted && <CreateBudget />}
+        {this.state.viewingBudget && <ReadBudget />}
+      </div>
+    )
   }
 }
 
-export default ListBudgets;
+export default ListBudgets

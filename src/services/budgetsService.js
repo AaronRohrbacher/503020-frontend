@@ -1,30 +1,30 @@
-export async function createBudget(obj) {
-    const json = JSON.stringify(obj)
-    const response = await fetch(`http://localhost:3000/createBudget`, {
+export async function createBudget (obj) {
+  const json = JSON.stringify(obj)
+  const response = await fetch('http://localhost:3000/createBudget', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: json 
+    body: json
   })
-  const data = await response.json();
+  const data = await response.json()
   return data
 }
 
-export async function readBudgets(userId) {
-  const response = await fetch(`http://localhost:3000/readBudgets`, {
+export async function readBudgets (userId) {
+  const response = await fetch('http://localhost:3000/readBudgets', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: userId
   })
-  const data = await response.json();
+  const data = await response.json()
   return data.Items
 }
 
-export async function readBudgetItems(budgetId) {
-  const response = await fetch(`http://localhost:3000/readBudgetItems` , {
+export async function readBudgetItems (budgetId) {
+  const response = await fetch('http://localhost:3000/readBudgetItems', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: budgetId
   })
-  const data = await response.json();
+  const data = await response.json()
   return data
 }

@@ -1,10 +1,9 @@
-import React from "react";
-import { readBudgetItems } from "../services/budgetsService";
-
+import React from 'react'
+import { readBudgetItems } from '../services/budgetsService'
 
 class ReadBudget extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       budgetItems: [],
       budgetData: {}
@@ -18,15 +17,15 @@ class ReadBudget extends React.Component {
         <p>{cost} {dueDate}</p>
       </div>
     </div>
-  );
+  )
 
-  async componentDidMount() {
-    const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: "1a" }));    
-    this.setState({ budgetData: budgetItems });
-    this.setState({ budgetItems: budgetItems.BudgetItems})
+  async componentDidMount () {
+    const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: '1a' }))
+    this.setState({ budgetData: budgetItems })
+    this.setState({ budgetItems: budgetItems.BudgetItems })
   }
 
-  render() {
+  render () {
     return (
       <div>
         {this.state.budgetItems.map((item) => (
@@ -41,4 +40,4 @@ class ReadBudget extends React.Component {
   }
 }
 
-export default ReadBudget;
+export default ReadBudget
