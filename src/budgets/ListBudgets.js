@@ -2,7 +2,7 @@ import React from 'react'
 import { readBudgets } from '../services/budgetsService'
 import ReadBudget from './readBudget'
 import CreateBudget from './CreateBudget'
-import Login from '../auth/login'
+import Login from '../auth/Login'
 
 class ListBudgets extends React.Component {
   constructor (props) {

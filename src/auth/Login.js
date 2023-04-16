@@ -12,24 +12,25 @@ class Login extends React.Component {
       password: ''
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
-    this.handlePasswordChange = this.handleUsernameChange.bind(this)
+    this.handlePasswordChange = this.handlePasswordChange.bind(this)
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   // Use the submitted data to set the state
   handleUsernameChange(event) {
-    const { username, value } = event.target
+    console.log(event.target)
+    const { name, value } = event.target
     this.setState({
-      [username]: value,
+      [name]: value,
     })
     console.log(username, value)
   }
 
   handlePasswordChange(event) {
-    const { password, value } = event.target
+    const { name, value } = event.target
     this.setState({
-      [password]: value,
+      [name]: value,
     })
     console.log(password, value)
   }
@@ -39,7 +40,7 @@ class Login extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createUser({ username: this.state.username, password: this.state.password }).then((response) => {
+    login({ username: this.state.username, password: this.state.password }).then((response) => {
       this.setState({
         creatingUser: false,
         submitted: true,
