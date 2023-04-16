@@ -2,6 +2,7 @@ import React from 'react'
 import { readBudgets } from '../services/budgetsService'
 import ReadBudget from './readBudget'
 import CreateBudget from './CreateBudget'
+import Login from '../auth/login'
 
 class ListBudgets extends React.Component {
   constructor (props) {
@@ -47,6 +48,7 @@ class ListBudgets extends React.Component {
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
+            key={`${budget.id}`}
           />
         ))}
       </div>
@@ -56,6 +58,8 @@ class ListBudgets extends React.Component {
   render () {
     return (
       <div>
+        {console.log(this.state.userId)}
+        {!this.state.userId && <Login />}
         {this.state.creatingBudget === false && this.renderList()}
         {this.state.creatingBudget && !this.state.submitted && <CreateBudget />}
         {this.state.viewingBudget && <ReadBudget />}
