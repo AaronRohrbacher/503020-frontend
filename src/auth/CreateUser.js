@@ -23,7 +23,6 @@ class CreateUser extends React.Component {
       [username]: username,
       [password]: password
     })
-    console.log(username, value)
   }
 
   handleSubmit (event) {
@@ -66,7 +65,6 @@ class CreateUser extends React.Component {
     return (
       <>
         {!this.state.submitted && this.renderForm()}
-        {this.state.creatingBudget === false && <ListBudgets />}
       </>
     )
   }

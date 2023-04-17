@@ -17,18 +17,16 @@ class CreateBudget extends React.Component {
   // Use the submitted data to set the state
   handleChange (event) {
     const { name, value } = event.target
-    console.log(event.target);
     this.setState({
       [name]: value
     })
-    console.log(name, value)
   }
 
   handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createBudget({ budgetName: this.state.name, userId: this.state.userId }).then(() => {
+    createBudget({ budgetName: this.state.name, userId: '1a' }).then(() => {
       this.setState({
         creatingBudget: false,
         submitted: true

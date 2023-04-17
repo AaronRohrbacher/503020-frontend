@@ -9,7 +9,8 @@ class ListBudgets extends React.Component {
     super(props)
     this.state = {
       budgets: [],
-      creatingBudget: false
+      creatingBudget: false,
+      userId: null
     }
   }
 
@@ -48,7 +49,6 @@ class ListBudgets extends React.Component {
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
-            key={`${budget.id}`}
           />
         ))}
       </div>
@@ -58,7 +58,6 @@ class ListBudgets extends React.Component {
   render () {
     return (
       <div>
-        {console.log(this.state.userId)}
         {!this.state.userId && <Login />}
         {this.state.creatingBudget === false && this.renderList()}
         {this.state.creatingBudget && !this.state.submitted && <CreateBudget />}
