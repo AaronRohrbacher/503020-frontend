@@ -62,7 +62,6 @@ class CreateBudget extends React.Component {
     return (
       <>
         {!this.state.submitted && this.renderForm()}
-        {this.state.creatingBudget === false && <ListBudgets />}
       </>
     )
   }
