@@ -10,7 +10,6 @@ class ListBudgets extends React.Component {
     this.state = {
       budgets: [],
       creatingBudget: false,
-      userId: null
     }
   }
 
@@ -41,7 +40,7 @@ class ListBudgets extends React.Component {
     this.setState({ budgets })
   }
 
-  renderList () {
+  renderList() {
     return (
       <div>
         <p onClick={this.beginCreateBudget}>Create Budget</p>
@@ -58,10 +57,9 @@ class ListBudgets extends React.Component {
   render () {
     return (
       <div>
-        {!this.state.userId && <Login />}
-        {this.state.creatingBudget === false && this.renderList()}
-        {this.state.creatingBudget && !this.state.submitted && <CreateBudget />}
-        {this.state.viewingBudget && <ReadBudget />}
+        {console.log(this.state.userId)}
+        {this.renderList()}
+        {this.state.creatingBudget && <CreateBudget />}
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React from 'react'
 import { login } from '../services/usersService'
 import { render } from '@testing-library/react'
 import ListBudgets from '../budgets/ListBudgets'
+import Budget from '../budgets/Budget'
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,10 +11,11 @@ class Login extends React.Component {
       loggingIn: true,
       username: '',
       password: '',
+      userId: null,
+      creatingBudget: false
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
-
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -37,13 +39,15 @@ class Login extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
+    let userId
     login({ username: this.state.username, password: this.state.password }).then((response) => {
-      console.log(response.userId);
-      this.setState({
-        creatingUser: false,
-        submitted: true,
-        userId: response.userId
-      })
+      userId = response.userId
+      console.log(response)
+    })
+    this.setState({
+      creatingUser: false,
+      submitted: true,
+      userId: '1a'
     })
   }
 
@@ -85,9 +89,7 @@ class Login extends React.Component {
   render() {
     return (
       <>
-        {console.log(this.state.userId)}
-        {!this.state.submitted && this.renderForm()}
-        {this.state.userId && <ListBudgets />}
+        {!this.state.userId && this.renderForm() || <ListBudgets />}
       </>
     )
   }
