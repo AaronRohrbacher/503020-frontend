@@ -11,6 +11,15 @@ class ListBudgets extends React.Component {
       budgets: [],
       creatingBudget: false,
     }
+    this.finishCreateBudgetHandler = this.finishCreateBudgetHandler.bind(this)
+
+  }
+
+  finishCreateBudgetHandler = () => {
+    console.log('FUCK')
+    this.setState({
+      creatingBudget: false
+    })
   }
 
   ViewBudget = (id) => {
@@ -48,6 +57,7 @@ class ListBudgets extends React.Component {
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
+            key={`${budget.id}`}
           />
         ))}
       </div>
@@ -57,9 +67,8 @@ class ListBudgets extends React.Component {
   render () {
     return (
       <div>
-        {console.log(this.state.userId)}
-        {this.renderList()}
-        {this.state.creatingBudget && <CreateBudget />}
+        {this.state.creatingBudget === true && <CreateBudget finishCreateBudgetHandler = {this.finishCreateBudgetHandler} />}
+        {this.state.creatingBudget === false && this.renderList()}
       </div>
     )
   }

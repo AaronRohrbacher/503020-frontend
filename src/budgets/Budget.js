@@ -24,10 +24,7 @@ class Budget extends React.Component {
   render () {
     return (
       <div>
-        {console.log(this.state.userId)}
         {!this.state.userId && <Login />}
-        {this.state.creatingBudget && !this.state.submitted && <CreateBudget />}
-        {this.state.viewingBudget && <ReadBudget />}
       </div>
     )
   }

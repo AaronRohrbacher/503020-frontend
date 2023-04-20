@@ -7,8 +7,8 @@ class CreateBudget extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      creatingBudget: true,
-      name: ''
+      name: '',
+      creatingBudget: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,6 +26,7 @@ class CreateBudget extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
+    this.props.finishCreateBudgetHandler
     createBudget({ budgetName: this.state.name, userId: '1a' }).then(() => {
       this.setState({
         creatingBudget: false,
@@ -61,8 +62,7 @@ class CreateBudget extends React.Component {
   render () {
     return (
       <>
-        {!this.state.submitted && this.renderForm()}
-        {this.state.creatingBudget === false && <ListBudgets />}
+        {!this.state.submitted === true && this.renderForm()}
       </>
     )
   }
