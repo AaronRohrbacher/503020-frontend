@@ -30,7 +30,6 @@ export async function updateBudget (obj) {
   return data
 }
 
-
 export async function readBudgetItems (budgetId) {
   const response = await fetch('http://localhost:3000/readBudgetItems', {
     method: 'POST',

@@ -5,7 +5,7 @@ import ListBudgets from '../budgets/ListBudgets'
 import Budget from '../budgets/Budget'
 
 class Login extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       loggingIn: true,
@@ -20,22 +20,21 @@ class Login extends React.Component {
   }
 
   // Use the submitted data to set the state
-  handleUsernameChange(event) {
+  handleUsernameChange (event) {
     const { name, value } = event.target
     this.setState({
-      [name]: value,
+      [name]: value
     })
   }
 
-  handlePasswordChange(event) {
+  handlePasswordChange (event) {
     const { name, value } = event.target
     this.setState({
-      [name]: value,
+      [name]: value
     })
   }
 
-
-  handleSubmit(event) {
+  handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
@@ -51,7 +50,7 @@ class Login extends React.Component {
     })
   }
 
-  renderForm() {
+  renderForm () {
     return (
       <div>
         <div className="form-group">
@@ -86,7 +85,7 @@ class Login extends React.Component {
     )
   }
 
-  render() {
+  render () {
     return (
       <>
         {!this.state.userId && this.renderForm() || <ListBudgets /> }

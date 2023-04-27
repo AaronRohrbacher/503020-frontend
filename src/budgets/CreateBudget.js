@@ -8,7 +8,7 @@ class CreateBudget extends React.Component {
     super(props)
     this.state = {
       name: '',
-      creatingBudget: false,
+      creatingBudget: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)

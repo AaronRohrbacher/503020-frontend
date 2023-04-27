@@ -5,11 +5,11 @@ import CreateBudget from './CreateBudget'
 import Login from '../auth/Login'
 
 class ListBudgets extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       budgets: [],
-      creatingBudget: false,
+      creatingBudget: false
     }
     this.finishCreateBudgetHandler = this.finishCreateBudgetHandler.bind(this)
   }
@@ -17,9 +17,9 @@ class ListBudgets extends React.Component {
   finishCreateBudgetHandler = () => {
     console.log('FUCK')
     this.setState({
-      creatingBudget: false
+      creatingBudget: false,
+      updatePending: true
     })
-
   }
 
   ViewBudget = (id) => {
@@ -44,26 +44,25 @@ class ListBudgets extends React.Component {
     </div>
   )
 
-  async componentDidMount() {
+  async componentDidMount () {
     const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
     this.setState({ budgets })
   }
 
-  async componentDidUpdate() {
-    console.log(this.prevState.budgets)
-    console.log(this.state.budgets)
-    if (prevState.data !== this.state.data) {
+  async componentDidUpdate () {
+    if (this.state.updatePending === true) {
       const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
       this.setState({ budgets })
+      this.setState({
+        updatePending: false
+      })
     }
   }
 
-
-  renderList() {
+  renderList () {
     return (
       <div>
         <p onClick={this.beginCreateBudget}>Create Budget</p>
-
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
@@ -74,7 +73,7 @@ class ListBudgets extends React.Component {
     )
   }
 
-  render() {
+  render () {
     return (
       <div>
         {this.state.creatingBudget === true && <CreateBudget finishCreateBudgetHandler={this.finishCreateBudgetHandler} />}
