@@ -5,14 +5,13 @@ import CreateBudget from './CreateBudget'
 import Login from '../auth/Login'
 
 class ListBudgets extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       budgets: [],
       creatingBudget: false,
     }
     this.finishCreateBudgetHandler = this.finishCreateBudgetHandler.bind(this)
-
   }
 
   finishCreateBudgetHandler = () => {
@@ -20,6 +19,7 @@ class ListBudgets extends React.Component {
     this.setState({
       creatingBudget: false
     })
+
   }
 
   ViewBudget = (id) => {
@@ -44,10 +44,20 @@ class ListBudgets extends React.Component {
     </div>
   )
 
-  async componentDidMount () {
+  async componentDidMount() {
     const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
     this.setState({ budgets })
   }
+
+  async componentDidUpdate() {
+    console.log(this.prevState.budgets)
+    console.log(this.state.budgets)
+    if (prevState.data !== this.state.data) {
+      const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
+      this.setState({ budgets })
+    }
+  }
+
 
   renderList() {
     return (
@@ -64,10 +74,10 @@ class ListBudgets extends React.Component {
     )
   }
 
-  render () {
+  render() {
     return (
       <div>
-        {this.state.creatingBudget === true && <CreateBudget finishCreateBudgetHandler = {this.finishCreateBudgetHandler} />}
+        {this.state.creatingBudget === true && <CreateBudget finishCreateBudgetHandler={this.finishCreateBudgetHandler} />}
         {this.state.creatingBudget === false && this.renderList()}
       </div>
     )
