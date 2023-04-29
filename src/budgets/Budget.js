@@ -34,10 +34,10 @@ class Budget extends React.Component {
     })
   }
 
-  handleLogin = () => {
+  handleLogin = (userId) => {
     this.setState({
       creatingUser: false,
-      userId: '1a'
+      userId
     })
   }
 
@@ -45,7 +45,7 @@ class Budget extends React.Component {
     return (
       <div>
         {!this.state.userId && <Login handleLogin={this.handleLogin} />}
-        {this.state.userId && !this.state.creatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets}/>}
+        {this.state.userId && !this.state.creatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} userId={this.state.userId} />}
         {this.state.creatingBudget && <CreateBudget handleCreateBudget={this.handleCreateBudget} />}
       </div>
     )

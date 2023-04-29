@@ -38,9 +38,8 @@ class Login extends React.Component {
     let userId
     login({ username: this.state.username, password: this.state.password }).then((response) => {
       userId = response.userId
-      console.log(response)
+      this.props.handleLogin(userId)
     })
-    this.props.handleLogin()
   }
 
   renderForm () {

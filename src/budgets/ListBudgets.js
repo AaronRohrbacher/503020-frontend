@@ -27,7 +27,7 @@ class ListBudgets extends React.Component {
 
   async componentDidUpdate (previousState) {
     if (previousState.data !== this.state.data) {
-      const budgets = await readBudgets(JSON.stringify({ userId: '1a' })).then(() => {
+      const budgets = await readBudgets(JSON.stringify({ userId: this.props.userId })).then(() => {
         this.setState({
           budgets
         })
