@@ -13,7 +13,6 @@ class Budget extends React.Component {
       viewingBudget: null,
       submitted: null,
       userId: null,
-      updatePending: false,
       budgets: []
     }
     this.handleCreateBudget = this.handleCreateBudget.bind(this)
@@ -24,11 +23,10 @@ class Budget extends React.Component {
   beginCreateBudget = () => {
     this.setState({
       creatingBudget: true,
-      updatePending: true,
       userId: this.state.userId
     })
   }
-  
+
   handleCreateBudget = () => {
     console.log('FUCK')
     this.setState({
@@ -38,7 +36,6 @@ class Budget extends React.Component {
 
   handleLogin = () => {
     this.setState({
-      updatePending: true,
       creatingUser: false,
       userId: '1a'
     })
@@ -48,8 +45,8 @@ class Budget extends React.Component {
     return (
       <div>
         {!this.state.userId && <Login handleLogin={this.handleLogin} />}
-        {this.state.userId && !this.state.creatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} />}
-        {this.state.creatingBudget && <CreateBudget handleCreateBudget={this.handleCreateBudget}/>}
+        {this.state.userId && !this.state.creatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets}/>}
+        {this.state.creatingBudget && <CreateBudget handleCreateBudget={this.handleCreateBudget} />}
       </div>
     )
   }

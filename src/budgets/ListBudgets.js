@@ -9,10 +9,9 @@ class ListBudgets extends React.Component {
     super(props)
     this.state = {
       budgets: [],
-      creatingBudget: false,
+      creatingBudget: false
     }
   }
-
 
   ViewBudget = (id) => {
     this.setState({
@@ -26,12 +25,15 @@ class ListBudgets extends React.Component {
     this.setState({ budgets })
   }
 
-  async componentDidUpdate (prevState) {    
-    if (prevState.updatePending === true) {
-      const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
-      this.setState({
-        budgets,
-        updatePending: false
+  async componentDidUpdate (previousState) {
+    if (previousState.data !== this.state.data) {
+      console.log(this.props.budgets)
+      console.log(this.state.budgets)
+
+      const budgets = await readBudgets(JSON.stringify({ userId: '1a' })).then(() => {
+        this.setState({
+          budgets
+        })
       })
     }
   }

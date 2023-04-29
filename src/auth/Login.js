@@ -9,7 +9,7 @@ class Login extends React.Component {
     super(props)
     this.state = {
       username: '',
-      password: '',
+      password: ''
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
