@@ -9,18 +9,10 @@ class ListBudgets extends React.Component {
     super(props)
     this.state = {
       budgets: [],
-      creatingBudget: false
+      creatingBudget: false,
     }
-    this.finishCreateBudgetHandler = this.finishCreateBudgetHandler.bind(this)
   }
 
-  finishCreateBudgetHandler = () => {
-    console.log('FUCK')
-    this.setState({
-      creatingBudget: false,
-      updatePending: true
-    })
-  }
 
   ViewBudget = (id) => {
     this.setState({
@@ -29,11 +21,19 @@ class ListBudgets extends React.Component {
     })
   }
 
-  beginCreateBudget = (id) => {
-    this.setState({
-      creatingBudget: true,
-      userId: id
-    })
+  async componentDidMount () {
+    const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
+    this.setState({ budgets })
+  }
+
+  async componentDidUpdate (prevState) {    
+    if (prevState.updatePending === true) {
+      const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
+      this.setState({
+        budgets,
+        updatePending: false
+      })
+    }
   }
 
   Budget = ({ budgetName }) => (
@@ -44,40 +44,16 @@ class ListBudgets extends React.Component {
     </div>
   )
 
-  async componentDidMount () {
-    const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
-    this.setState({ budgets })
-  }
-
-  async componentDidUpdate () {
-    if (this.state.updatePending === true) {
-      const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
-      this.setState({ budgets })
-      this.setState({
-        updatePending: false
-      })
-    }
-  }
-
-  renderList () {
+  render () {
     return (
       <div>
-        <p onClick={this.beginCreateBudget}>Create Budget</p>
+        <p onClick={this.props.beginCreateBudget}>Create Budget</p>
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
             key={`${budget.id}`}
           />
         ))}
-      </div>
-    )
-  }
-
-  render () {
-    return (
-      <div>
-        {this.state.creatingBudget === true && <CreateBudget finishCreateBudgetHandler={this.finishCreateBudgetHandler} />}
-        {this.state.creatingBudget === false && this.renderList()}
       </div>
     )
   }

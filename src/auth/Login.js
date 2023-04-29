@@ -8,11 +8,8 @@ class Login extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loggingIn: true,
       username: '',
       password: '',
-      userId: null,
-      creatingBudget: false
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
@@ -43,11 +40,7 @@ class Login extends React.Component {
       userId = response.userId
       console.log(response)
     })
-    this.setState({
-      creatingUser: false,
-      submitted: true,
-      userId: '1a'
-    })
+    this.props.handleLogin()
   }
 
   renderForm () {
@@ -88,7 +81,7 @@ class Login extends React.Component {
   render () {
     return (
       <>
-        {!this.state.userId && this.renderForm() || <ListBudgets /> }
+        {this.renderForm()}
       </>
     )
   }

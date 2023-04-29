@@ -12,19 +12,44 @@ class Budget extends React.Component {
       creatingBudget: null,
       viewingBudget: null,
       submitted: null,
-      userId: null
+      userId: null,
+      updatePending: false,
+      budgets: []
     }
+    this.handleCreateBudget = this.handleCreateBudget.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
+    this.beginCreateBudget = this.beginCreateBudget.bind(this)
   }
 
-  async componentDidMount () {
-    const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
-    this.setState({ budgets })
+  beginCreateBudget = () => {
+    this.setState({
+      creatingBudget: true,
+      updatePending: true,
+      userId: this.state.userId
+    })
+  }
+  
+  handleCreateBudget = () => {
+    console.log('FUCK')
+    this.setState({
+      creatingBudget: false
+    })
+  }
+
+  handleLogin = () => {
+    this.setState({
+      updatePending: true,
+      creatingUser: false,
+      userId: '1a'
+    })
   }
 
   render () {
     return (
       <div>
-        {!this.state.userId && <Login />}
+        {!this.state.userId && <Login handleLogin={this.handleLogin} />}
+        {this.state.userId && !this.state.creatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} />}
+        {this.state.creatingBudget && <CreateBudget handleCreateBudget={this.handleCreateBudget}/>}
       </div>
     )
   }
