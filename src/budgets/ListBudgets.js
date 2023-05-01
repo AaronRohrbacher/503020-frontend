@@ -1,5 +1,5 @@
 import React from 'react'
-import { readBudgets } from '../services/budgetsService'
+import { readBudgets, readBudgetItems } from '../services/budgetsService'
 import ReadBudget from './readBudget'
 import CreateBudget from './CreateBudget'
 import Login from '../auth/Login'
@@ -9,15 +9,9 @@ class ListBudgets extends React.Component {
     super(props)
     this.state = {
       budgets: [],
-      creatingBudget: false
+      creatingBudget: false,
+      budgetId: null
     }
-  }
-
-  ViewBudget = (id) => {
-    this.setState({
-      viewingBudget: true,
-      budgetId: id
-    })
   }
 
   async componentDidMount () {
@@ -35,10 +29,10 @@ class ListBudgets extends React.Component {
     }
   }
 
-  Budget = ({ budgetName }) => (
+  Budget = ({ budgetName, budgetId }) => (
     <div>
       <div>
-        <p onClick={this.ViewBudget}>{budgetName}</p>
+        <p onClick={() => { this.props.handleViewBudget(budgetId) }}>{budgetName}{budgetId}</p>
       </div>
     </div>
   )
@@ -46,13 +40,16 @@ class ListBudgets extends React.Component {
   render () {
     return (
       <div>
+
         <p onClick={this.props.beginCreateBudget}>Create Budget</p>
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}
             key={`${budget.id}`}
+            budgetId={`${budget.id}`}
           />
         ))}
+        {this.props.viewingBudget === true && <ReadBudget budgetId={this.state.budgetId} /> }
       </div>
     )
   }

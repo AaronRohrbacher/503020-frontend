@@ -20,7 +20,7 @@ class ReadBudget extends React.Component {
   )
 
   async componentDidMount () {
-    const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: '1a' }))
+    const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: this.props.budgetId }))
     this.setState({ budgetData: budgetItems })
     this.setState({ budgetItems: budgetItems.BudgetItems })
   }
@@ -33,6 +33,7 @@ class ReadBudget extends React.Component {
             budgetItem={`${item.name}`}
             cost={`${item.cost}`}
             dueDate={`${this.state.budgetData.currentMonth} ${item.dueDate}`}
+            key={`${item.id}`}
           />
         ))}
       </div>

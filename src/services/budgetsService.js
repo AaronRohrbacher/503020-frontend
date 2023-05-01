@@ -31,6 +31,7 @@ export async function updateBudget (obj) {
 }
 
 export async function readBudgetItems (budgetId) {
+  console.log(budgetId)
   const response = await fetch('http://localhost:3000/readBudgetItems', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
