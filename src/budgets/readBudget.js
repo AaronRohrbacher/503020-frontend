@@ -28,6 +28,7 @@ class ReadBudget extends React.Component {
   render () {
     return (
       <div>
+        <p onClick={this.props.beginCreateBudgetItem}>Create BudgetItem</p>
         {this.state.budgetItems.map((item) => (
           <this.BudgetItem
             budgetItem={`${item.name}`}

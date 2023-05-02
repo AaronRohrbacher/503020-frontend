@@ -4,6 +4,7 @@ import ReadBudget from './readBudget'
 import CreateBudget from './CreateBudget'
 import Login from '../auth/Login'
 import ListBudgets from './ListBudgets'
+import CreateBudgetItem from './CreateBudgetItem'
 
 class Budget extends React.Component {
   constructor (props) {
@@ -14,11 +15,13 @@ class Budget extends React.Component {
       budgetId: null,
       submitted: null,
       userId: null,
+      creatingBudgetItem: null,
       budgets: []
     }
     this.handleCreateBudget = this.handleCreateBudget.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.beginCreateBudget = this.beginCreateBudget.bind(this)
+    this.handleCreateBudgetItem = this.handleCreateBudgetItem.bind(this)
   }
 
   beginCreateBudget = () => {
@@ -28,10 +31,22 @@ class Budget extends React.Component {
     })
   }
 
+  beginCreateBudgetItem = () => {
+    this.setState({
+      creatingBudgetItem: true,
+      budgetId: this.state.budgetId
+    })
+  }
+
   handleCreateBudget = () => {
-    console.log('FUCK')
     this.setState({
       creatingBudget: false
+    })
+  }
+
+  handleCreateBudgetItem = () => {
+    this.setState({
+      creatingBudgetItem: false
     })
   }
 
@@ -55,7 +70,8 @@ class Budget extends React.Component {
         {!this.state.userId && <Login handleLogin={this.handleLogin} />}
         {this.state.userId && !this.state.creatingBudget && !this.state.viewingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} userId={this.state.userId} handleViewBudget={this.handleViewBudget} />}
         {this.state.creatingBudget && <CreateBudget handleCreateBudget={this.handleCreateBudget} />}
-        {this.state.viewingBudget && <ReadBudget budgetId={this.state.budgetId} />}
+        {this.state.viewingBudget && !this.state.creatingBudgetItem && <ReadBudget budgetId={this.state.budgetId} beginCreateBudgetItem={this.beginCreateBudgetItem} />}
+        {this.state.creatingBudgetItem && <CreateBudgetItem handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
       </div>
     )
   }
