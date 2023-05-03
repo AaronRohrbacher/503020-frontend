@@ -4,27 +4,45 @@ import { render } from '@testing-library/react'
 import ListBudgets from './ListBudgets'
 
 class CreateBudgetItem extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      name: ''
+      name: '',
+      cost: '',
+      dueDate: ''
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChangeName = this.handleChangeName.bind(this)
+    this.handleChangeCost = this.handleChangeCost.bind(this)
+    this.handleChangeDueDate = this.handleChangeDueDate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange (event) {
+  handleChangeName(event) {
     const { name, value } = event.target
     this.setState({
-      [name]: value
+      [name]: value,
     })
   }
 
-  handleSubmit (event) {
+  handleChangeCost(event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value,
+    })
+  }
+
+  handleChangeDueDate(event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value,
+    })
+  }
+
+  handleSubmit(event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createBudgetItem({ name: this.state.name, budgetId: this.props.budgetId }).then(() => {
+    createBudgetItem({ name: this.state.name, budgetId: this.props.budgetId, cost: this.state.cost, dueDate: this.state.dueDate }).then(() => {
       this.props.handleCreateBudgetItem()
       this.setState({
         creatingBudgetItem: false,
@@ -33,7 +51,7 @@ class CreateBudgetItem extends React.Component {
     })
   }
 
-  renderForm () {
+  renderForm() {
     return (
       <div>
         <div className="form-group">
@@ -47,9 +65,30 @@ class CreateBudgetItem extends React.Component {
               type="text"
               placeholder="Name"
               value={this.state.name} // Prop: The email input data
-              onChange={this.handleChange} // Prop: Puts data into state
+              onChange={this.handleChangeName} // Prop: Puts data into state
             />
-           <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>
+            <label htmlFor="cost">cost:</label>
+            <input
+              className={'form-control-lg form-control'}
+              id="cost"
+              name="cost"
+              type="text"
+              placeholder="cost"
+              value={this.state.cost} // Prop: The email input data
+              onChange={this.handleChangeCost} // Prop: Puts data into state
+            />
+            <label htmlFor="dueDate">dueDate:</label>
+            <input
+              className={'form-control-lg form-control'}
+              id="dueDate"
+              name="dueDate"
+              type="text"
+              placeholder="dueDate"
+              value={this.state.dueDate} // Prop: The email input data
+              onChange={this.handleChangeDueDate} // Prop: Puts data into state
+            />
+
+            <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>
 
           </form>
         </div>
@@ -57,7 +96,7 @@ class CreateBudgetItem extends React.Component {
     )
   }
 
-  render () {
+  render() {
     return (
       <>
         {!this.state.submitted && this.renderForm()}
