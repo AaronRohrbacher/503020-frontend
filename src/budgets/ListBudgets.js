@@ -15,7 +15,7 @@ class ListBudgets extends React.Component {
   }
 
   async componentDidMount () {
-    const budgets = await readBudgets(JSON.stringify({ userId: '1a' }))
+    const budgets = await readBudgets(JSON.stringify({ userId: this.props.userId }))
     this.setState({ budgets })
   }
 

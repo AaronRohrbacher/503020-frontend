@@ -25,7 +25,7 @@ class CreateBudget extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createBudget({ budgetName: this.state.name, userId: '1a' }).then(() => {
+    createBudget({ budgetName: this.state.name, userId: this.props.userId }).then(() => {
       this.props.handleCreateBudget()
       this.setState({
         creatingBudget: false,

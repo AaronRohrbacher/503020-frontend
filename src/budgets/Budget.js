@@ -69,9 +69,9 @@ class Budget extends React.Component {
       <div>
         {!this.state.userId && <Login handleLogin={this.handleLogin} />}
         {this.state.userId && !this.state.creatingBudget && !this.state.viewingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} userId={this.state.userId} handleViewBudget={this.handleViewBudget} />}
-        {this.state.creatingBudget && <CreateBudget handleCreateBudget={this.handleCreateBudget} />}
+        {this.state.creatingBudget && <CreateBudget userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />}
         {this.state.viewingBudget && !this.state.creatingBudgetItem && <ReadBudget budgetId={this.state.budgetId} beginCreateBudgetItem={this.beginCreateBudgetItem} />}
-        {this.state.creatingBudgetItem && <CreateBudgetItem handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
+        {this.state.creatingBudgetItem && <CreateBudgetItem userId={this.state.userId} handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
       </div>
     )
   }
