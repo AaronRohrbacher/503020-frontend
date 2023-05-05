@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import ListBudgets from './ListBudgets'
 
 class CreateBudgetItem extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       name: '',
@@ -17,28 +17,28 @@ class CreateBudgetItem extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChangeName(event) {
+  handleChangeName (event) {
     const { name, value } = event.target
     this.setState({
-      [name]: value,
+      [name]: value
     })
   }
 
-  handleChangeCost(event) {
+  handleChangeCost (event) {
     const { name, value } = event.target
     this.setState({
-      [name]: value,
+      [name]: value
     })
   }
 
-  handleChangeDueDate(event) {
+  handleChangeDueDate (event) {
     const { name, value } = event.target
     this.setState({
-      [name]: value,
+      [name]: value
     })
   }
 
-  handleSubmit(event) {
+  handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
@@ -51,7 +51,7 @@ class CreateBudgetItem extends React.Component {
     })
   }
 
-  renderForm() {
+  renderForm () {
     return (
       <div>
         <div className="form-group">
@@ -96,7 +96,7 @@ class CreateBudgetItem extends React.Component {
     )
   }
 
-  render() {
+  render () {
     return (
       <>
         {!this.state.submitted && this.renderForm()}

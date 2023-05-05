@@ -3,6 +3,7 @@ import { readBudgets, readBudgetItems } from '../services/budgetsService'
 import ReadBudget from './readBudget'
 import CreateBudget from './CreateBudget'
 import Login from '../auth/Login'
+import UpdateBudget from './UpdateBudget'
 
 class ListBudgets extends React.Component {
   constructor (props) {
@@ -32,7 +33,7 @@ class ListBudgets extends React.Component {
   Budget = ({ budgetName, budgetId }) => (
     <div>
       <div>
-        <p onClick={() => { this.props.handleViewBudget(budgetId) }}>{budgetName}{budgetId}</p>
+        <p onClick={() => { this.props.handleViewBudget(budgetId) }}>{budgetName}{budgetId}</p><p onClick={() => { this.props.beginUpdateBudget(budgetId) }} >EDIT</p>
       </div>
     </div>
   )

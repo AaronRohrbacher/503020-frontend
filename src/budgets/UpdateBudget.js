@@ -1,9 +1,9 @@
 import React from 'react'
-import { createBudget } from '../services/budgetsService'
+import { updateBudget } from '../services/budgetsService'
 import { render } from '@testing-library/react'
 import ListBudgets from './ListBudgets'
 
-class CreateBudget extends React.Component {
+class UpdateBudget extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -34,8 +34,8 @@ class CreateBudget extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createBudget({ budgetName: this.state.name, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance }).then(() => {
-      this.props.handleCreateBudget()
+    updateBudget({ budgetName: this.state.name, id: this.props.budgetId, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance }).then(() => {
+      this.props.handleUpdateBudget()
       this.setState({
         creatingBudget: false,
         submitted: true
@@ -87,4 +87,4 @@ class CreateBudget extends React.Component {
   }
 }
 
-export default CreateBudget
+export default UpdateBudget

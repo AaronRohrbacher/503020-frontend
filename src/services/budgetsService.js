@@ -20,8 +20,9 @@ export async function readBudgets (userId) {
 }
 
 export async function updateBudget (obj) {
+  console.log(obj)
   const json = JSON.stringify(obj)
-  const response = await fetch('http://localhost:3000/createBudget', {
+  const response = await fetch('http://localhost:3000/updateBudget', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: json
