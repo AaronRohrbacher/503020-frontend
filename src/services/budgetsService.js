@@ -19,6 +19,17 @@ export async function readBudgets (userId) {
   return data.Items
 }
 
+
+export async function readBudget (id) {
+  const response = await fetch('http://localhost:3000/readBudget', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: id
+  })
+  const data = await response.json()
+  return data.Items
+}
+
 export async function updateBudget (obj) {
   console.log(obj)
   const json = JSON.stringify(obj)
@@ -52,3 +63,16 @@ export async function readBudgetItems (budgetId) {
   const data = await response.json()
   return data
 }
+
+export async function updateBudgetItem (obj) {
+  console.log(obj)
+  const json = JSON.stringify(obj)
+  const response = await fetch('http://localhost:3000/updateBudget', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: json
+  })
+  const data = await response.json()
+  return data
+}
+

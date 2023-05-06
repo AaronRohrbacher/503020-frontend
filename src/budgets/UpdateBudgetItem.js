@@ -1,60 +1,36 @@
 import React from 'react'
-import { updateBudget, readBudget } from '../services/budgetsService'
+import { updateBudget } from '../services/budgetsService'
 import { render } from '@testing-library/react'
 import ListBudgets from './ListBudgets'
 
-class UpdateBudget extends React.Component {
-  constructor (props) {
+class UpdateBudgetItem extends React.Component {
+  constructor(props) {
     super(props)
-    this.state = {
-      submitted: false,
-      name: '',
-      currentBankBalance: ''
-    }
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeCurrentBankBalance = this.handleChangeCurrentBankBalance.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChangeName (event) {
+  handleChangeName(event) {
     const { name, value } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  handleChangeCurrentBankBalance (event) {
-    const { name, value } = event.target
-    this.setState({
-      [name]: value
-    })
-  }
-
-  handleSubmit (event) {
+  handleSubmit(event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    updateBudget({ budgetName: this.state.name, id: this.props.budgetId, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance }).then(() => {
+    updateBudgetItem({ name: this.state.name, id: this.props.budgetItemId, userId: this.props.userId }).then(() => {
       this.props.handleUpdateBudget()
       this.setState({
-        creatingBudget: false,
         submitted: true
       })
     })
   }
 
-  async componentDidMount() {
-    console.log('FUCK')
-    const budget = await readBudget(JSON.stringify({ id: this.props.budgetId })).then((response) => {
-      console.log(response)
-      this.setState({
-        name: response[0].budgetName,
-        currentBankBalance: response[0].currentBankBalance
-      })
-    })
-  }
-
-  renderForm () {
+  renderForm() {
     return (
       <div>
         <div className="form-group">
@@ -66,19 +42,29 @@ class UpdateBudget extends React.Component {
               id="name"
               name="name"
               type="text"
-              placeholder="Budget Name"
+              placeholder="Name"
               value={this.state.name} // Prop: The email input data
               onChange={this.handleChangeName} // Prop: Puts data into state
             />
-            <label htmlFor="name">currentBankBalance:</label>
+            <label htmlFor="cost">cost:</label>
             <input
               className={'form-control-lg form-control'}
-              id="currentBankBalance"
-              name="currentBankBalance"
+              id="cost"
+              name="cost"
               type="text"
-              placeholder="Current Bank Balance"
-              value={this.state.currentBankBalance} // Prop: The email input data
-              onChange={this.handleChangeCurrentBankBalance} // Prop: Puts data into state
+              placeholder="cost"
+              value={this.state.cost} // Prop: The email input data
+              onChange={this.handleChangeCost} // Prop: Puts data into state
+            />
+            <label htmlFor="dueDate">dueDate:</label>
+            <input
+              className={'form-control-lg form-control'}
+              id="dueDate"
+              name="dueDate"
+              type="text"
+              placeholder="dueDate"
+              value={this.state.dueDate} // Prop: The email input data
+              onChange={this.handleChangeDueDate} // Prop: Puts data into state
             />
 
             <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>
@@ -86,10 +72,11 @@ class UpdateBudget extends React.Component {
           </form>
         </div>
       </div>
+
     )
   }
 
-  render () {
+  render() {
     return (
       <>
         {!this.state.submitted === true && this.renderForm()}
@@ -98,4 +85,4 @@ class UpdateBudget extends React.Component {
   }
 }
 
-export default UpdateBudget
+export default UpdateBudgetItem
