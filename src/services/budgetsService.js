@@ -19,12 +19,23 @@ export async function readBudgets (userId) {
   return data.Items
 }
 
-
 export async function readBudget (id) {
   const response = await fetch('http://localhost:3000/readBudget', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: id
+  })
+  const data = await response.json()
+  return data.Items
+}
+
+export async function readBudgetItem (obj) {
+  console.log(obj)
+  const json = JSON.stringify(obj)
+  const response = await fetch('http://localhost:3000/readBudgetItem', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: json
   })
   const data = await response.json()
   return data.Items
@@ -43,6 +54,7 @@ export async function updateBudget (obj) {
 }
 
 export async function createBudgetItem (obj) {
+  console.log('FUCK!')
   const json = JSON.stringify(obj)
   const response = await fetch('http://localhost:3000/createBudgetItem', {
     method: 'POST',
@@ -67,7 +79,7 @@ export async function readBudgetItems (budgetId) {
 export async function updateBudgetItem (obj) {
   console.log(obj)
   const json = JSON.stringify(obj)
-  const response = await fetch('http://localhost:3000/updateBudget', {
+  const response = await fetch('http://localhost:3000/updateBudgetItem', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: json
@@ -75,4 +87,3 @@ export async function updateBudgetItem (obj) {
   const data = await response.json()
   return data
 }
-

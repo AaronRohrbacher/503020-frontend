@@ -10,11 +10,12 @@ class ReadBudget extends React.Component {
     }
   }
 
-  BudgetItem = ({ budgetItem, cost, dueDate }) => (
+  BudgetItem = ({ budgetItem, cost, dueDate, budgetItemId }) => (
     <div>
       <div>
-        <p>{budgetItem}</p>
+        <p>{budgetItem}{budgetItemId}</p>
         <p>{cost} {dueDate}</p>
+        <p onClick={() => { this.props.beginUpdateBudgetItem(budgetItemId) }} >EDIT</p>
       </div>
     </div>
   )
@@ -35,6 +36,7 @@ class ReadBudget extends React.Component {
             cost={`${item.cost}`}
             dueDate={`${this.state.budgetData.currentMonth} ${item.dueDate}`}
             key={`${item.id}`}
+            budgetItemId={`${item.id}`}
           />
         ))}
       </div>

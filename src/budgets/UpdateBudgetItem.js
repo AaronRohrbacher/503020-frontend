@@ -1,36 +1,76 @@
 import React from 'react'
-import { updateBudget } from '../services/budgetsService'
+import { readBudgetItem, updateBudgetItem } from '../services/budgetsService'
+
 import { render } from '@testing-library/react'
 import ListBudgets from './ListBudgets'
 
 class UpdateBudgetItem extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
+    this.state = {
+      name: '',
+      dueDate: '',
+      cost: ''
+    }
     this.handleChangeName = this.handleChangeName.bind(this)
-    this.handleChangeCurrentBankBalance = this.handleChangeCurrentBankBalance.bind(this)
+    this.handleChangeCost = this.handleChangeCost.bind(this)
+    this.handleChangeDueDate = this.handleChangeDueDate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChangeName(event) {
+  handleChangeName (event) {
     const { name, value } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  handleSubmit(event) {
+  handleChangeDueDate (event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handleChangeCost (event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    updateBudgetItem({ name: this.state.name, id: this.props.budgetItemId, userId: this.props.userId }).then(() => {
-      this.props.handleUpdateBudget()
+    updateBudgetItem({
+      name: this.state.name,
+      id: this.props.budgetItemId,
+      budgetId: this.props.budgetId,
+      cost: this.state.cost,
+      dueDate: this.state.dueDate
+    }).then(() => {
+      this.props.handleUpdateBudgetItem()
       this.setState({
         submitted: true
       })
     })
   }
 
-  renderForm() {
+  async componentDidMount () {
+    console.log('MOUNT')
+    console.log(this.props.budgetItemId)
+    const budgetItem = await readBudgetItem(JSON.stringify({ id: this.props.budgetItemId, budgetId: this.props.budgetId })).then((response) => {
+      console.log(response)
+      this.setState({
+        name: response[0].name,
+        cost: response[0].cost,
+        dueDate: response[0].dueDate
+      })
+    })
+  }
+
+  renderForm () {
     return (
       <div>
         <div className="form-group">
@@ -76,7 +116,7 @@ class UpdateBudgetItem extends React.Component {
     )
   }
 
-  render() {
+  render () {
     return (
       <>
         {!this.state.submitted === true && this.renderForm()}

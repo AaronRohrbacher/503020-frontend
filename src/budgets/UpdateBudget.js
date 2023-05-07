@@ -43,7 +43,7 @@ class UpdateBudget extends React.Component {
     })
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     console.log('FUCK')
     const budget = await readBudget(JSON.stringify({ id: this.props.budgetId })).then((response) => {
       console.log(response)
