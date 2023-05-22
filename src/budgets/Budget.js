@@ -47,7 +47,6 @@ class Budget extends React.Component {
   }
 
   beginCreateBudgetItem = () => {
-    console.log('WRONG FUCK')
     this.setState({
       creatingBudgetItem: true,
       budgetId: this.state.budgetId
@@ -55,7 +54,6 @@ class Budget extends React.Component {
   }
 
   beginUpdateBudgetItem = (id) => {
-    console.log('BEGIN FUCK')
     this.setState({
       updatingBudgetItem: true,
       budgetItemId: id

@@ -42,7 +42,7 @@ class CreateBudgetItem extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createBudgetItem({ name: this.state.name, budgetId: this.props.budgetId, cost: this.state.cost, dueDate: this.state.dueDate }).then(() => {
+    createBudgetItem({ name: this.state.name, budgetId: this.props.budgetId, cost: this.state.cost, dueDate: this.state.dueDate, pending: false }).then(() => {
       this.props.handleCreateBudgetItem()
       this.setState({
         creatingBudgetItem: false,
@@ -56,7 +56,6 @@ class CreateBudgetItem extends React.Component {
       <div>
         <div className="form-group">
           <form onSubmit={this.handleSubmit}>
-
             <label htmlFor="name">Budget Name:</label>
             <input
               className={'form-control-lg form-control'}
@@ -87,9 +86,7 @@ class CreateBudgetItem extends React.Component {
               value={this.state.dueDate} // Prop: The email input data
               onChange={this.handleChangeDueDate} // Prop: Puts data into state
             />
-
             <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>
-
           </form>
         </div>
       </div>

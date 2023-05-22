@@ -9,11 +9,13 @@ class CreateBudget extends React.Component {
     this.state = {
       name: '',
       currentBankBalance: '',
+      expectedPaycheckAmount: '',
       creatingBudget: false
     }
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeCurrentBankBalance = this.handleChangeCurrentBankBalance.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChangeExpectedPaycheckAmount = this.handleChangeExpectedPaycheckAmount.bind(this)
   }
 
   handleChangeName (event) {
@@ -30,11 +32,18 @@ class CreateBudget extends React.Component {
     })
   }
 
+  handleChangeExpectedPaycheckAmount (event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value
+    })
+  }
+
   handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createBudget({ budgetName: this.state.name, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance }).then(() => {
+    createBudget({ budgetName: this.state.name, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance, expectedPaycheckAmount: this.state.expectedPaycheckAmount }).then(() => {
       this.props.handleCreateBudget()
       this.setState({
         creatingBudget: false,
@@ -68,6 +77,16 @@ class CreateBudget extends React.Component {
               placeholder="Current Bank Balance"
               value={this.state.currentBankBalance} // Prop: The email input data
               onChange={this.handleChangeCurrentBankBalance} // Prop: Puts data into state
+            />
+            <label htmlFor="name">expectedPaycheckAmount:</label>
+            <input
+              className={'form-control-lg form-control'}
+              id="expectedPaycheckAmount"
+              name="expectedPaycheckAmount"
+              type="text"
+              placeholder="Current Bank Balance"
+              value={this.state.expectedPaycheckAmount} // Prop: The email input data
+              onChange={this.handleChangeExpectedPaycheckAmount} // Prop: Puts data into state
             />
 
             <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>

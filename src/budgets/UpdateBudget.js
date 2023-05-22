@@ -9,10 +9,12 @@ class UpdateBudget extends React.Component {
     this.state = {
       submitted: false,
       name: '',
-      currentBankBalance: ''
+      currentBankBalance: '',
+      expectedPaycheckAmount: ''
     }
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeCurrentBankBalance = this.handleChangeCurrentBankBalance.bind(this)
+    this.handleChangeExpectedPaycheckAmount = this.handleChangeExpectedPaycheckAmount.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -30,11 +32,20 @@ class UpdateBudget extends React.Component {
     })
   }
 
+  handleChangeExpectedPaycheckAmount (event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value
+    })
+  }
+
   handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    updateBudget({ budgetName: this.state.name, id: this.props.budgetId, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance }).then(() => {
+    updateBudget({
+      budgetName: this.state.name, id: this.props.budgetId, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance, expectedPaycheckAmount: this.state.expectedPaycheckAmount
+    }).then(() => {
       this.props.handleUpdateBudget()
       this.setState({
         creatingBudget: false,
@@ -44,12 +55,11 @@ class UpdateBudget extends React.Component {
   }
 
   async componentDidMount () {
-    console.log('FUCK')
     const budget = await readBudget(JSON.stringify({ id: this.props.budgetId })).then((response) => {
-      console.log(response)
       this.setState({
         name: response[0].budgetName,
-        currentBankBalance: response[0].currentBankBalance
+        currentBankBalance: response[0].currentBankBalance,
+        expectedPaycheckAmount: response[0].expectedPaycheckAmount
       })
     })
   }
@@ -79,6 +89,16 @@ class UpdateBudget extends React.Component {
               placeholder="Current Bank Balance"
               value={this.state.currentBankBalance} // Prop: The email input data
               onChange={this.handleChangeCurrentBankBalance} // Prop: Puts data into state
+            />
+            <label htmlFor="name">expectedPaycheckAmount:</label>
+            <input
+              className={'form-control-lg form-control'}
+              id="expectedPaycheckAmount"
+              name="expectedPaycheckAmount"
+              type="text"
+              placeholder="Current Bank Balance"
+              value={this.state.expectedPaycheckAmount} // Prop: The email input data
+              onChange={this.handleChangeExpectedPaycheckAmount} // Prop: Puts data into state
             />
 
             <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>

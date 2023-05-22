@@ -1,21 +1,20 @@
 import React from 'react'
 import { readBudgetItem, updateBudgetItem } from '../services/budgetsService'
 
-import { render } from '@testing-library/react'
-import ListBudgets from './ListBudgets'
-
 class UpdateBudgetItem extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       name: '',
       dueDate: '',
-      cost: ''
+      cost: '',
+      pending: false
     }
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeCost = this.handleChangeCost.bind(this)
     this.handleChangeDueDate = this.handleChangeDueDate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChangePendingChecked = this.handleChangePendingChecked.bind(this)
   }
 
   handleChangeName (event) {
@@ -39,6 +38,13 @@ class UpdateBudgetItem extends React.Component {
     })
   }
 
+  handleChangePendingChecked (event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: !this.state.pending
+    })
+  }
+
   handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
@@ -48,7 +54,8 @@ class UpdateBudgetItem extends React.Component {
       id: this.props.budgetItemId,
       budgetId: this.props.budgetId,
       cost: this.state.cost,
-      dueDate: this.state.dueDate
+      dueDate: this.state.dueDate,
+      pending: this.state.pending
     }).then(() => {
       this.props.handleUpdateBudgetItem()
       this.setState({
@@ -58,14 +65,12 @@ class UpdateBudgetItem extends React.Component {
   }
 
   async componentDidMount () {
-    console.log('MOUNT')
-    console.log(this.props.budgetItemId)
     const budgetItem = await readBudgetItem(JSON.stringify({ id: this.props.budgetItemId, budgetId: this.props.budgetId })).then((response) => {
-      console.log(response)
       this.setState({
         name: response[0].name,
         cost: response[0].cost,
-        dueDate: response[0].dueDate
+        dueDate: response[0].dueDate,
+        pending: response[0].pending
       })
     })
   }
@@ -106,13 +111,12 @@ class UpdateBudgetItem extends React.Component {
               value={this.state.dueDate} // Prop: The email input data
               onChange={this.handleChangeDueDate} // Prop: Puts data into state
             />
-
+            <label htmlFor="pending">pending:</label>
+            <input onChange={this.handleChangePendingChecked} name="pending" checked={this.state.pending} style ={{ defaultChecked: this.state.pending }} type="checkbox" />
             <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>
-
           </form>
         </div>
       </div>
-
     )
   }
 
