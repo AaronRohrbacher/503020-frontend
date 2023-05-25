@@ -70,6 +70,7 @@ export async function readBudgetItems (budgetId) {
   })
 
   const data = await response.json()
+  console.log(data.totalByPayperiod)
   return data
 }
 

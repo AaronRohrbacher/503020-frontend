@@ -2,7 +2,7 @@ import React from 'react'
 import { readBudgetItems } from '../services/budgetsService'
 
 class ReadBudget extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       budgetItems: [],
@@ -16,14 +16,15 @@ class ReadBudget extends React.Component {
         <p>{budgetItem}{budgetItemId}</p>
         <p>{cost} {dueDate}</p>
         <p onClick={() => { this.props.beginUpdateBudgetItem(budgetItemId) }} >EDIT</p>
-        {pending === "true" && <p>PENDING</p>}
+        {pending === 'true' && <p>PENDING</p>}
       </div>
     </div>
   )
 
   BudgetDetails = ({
     budgetTotal,
-    totalByPayPeriod,
+    pre15Total,
+    post15Total,
     numberOfDaysUntilNextPay,
     dailyBudget,
     bankBalance,
@@ -32,37 +33,39 @@ class ReadBudget extends React.Component {
     pendingItemBalance
   }) => (
     <div>
-      budgetTotal: {budgetTotal}
-      totalByPayPeriod: {totalByPayPeriod}
-      numberOfDaysUntilNextPay: {numberOfDaysUntilNextPay}
-      dailyBudget: {dailyBudget}
-      bankBalance: {bankBalance}
-      estimatedMonthlyDailySpending: {estimatedMonthlyDailySpending}
-      expectedIncome: {expectedIncome}
-      pendingItemBalance: {pendingItemBalance}
-
+      budgetTotal: {budgetTotal}&nbsp;
+      pre15total: {pre15Total}&nbsp;
+      post15Total: {post15Total}&nbsp;
+      numberOfDaysUntilNextPay: {numberOfDaysUntilNextPay}&nbsp;
+      dailyBudget: {dailyBudget}&nbsp;
+      bankBalance: {bankBalance}&nbsp;
+      estimatedMonthlyDailySpending: {estimatedMonthlyDailySpending}&nbsp;
+      expectedIncome: {expectedIncome}&nbsp;
+      pendingItemBalance: {pendingItemBalance}&nbsp;
     </div>
   )
 
-  async componentDidMount() {
+  async componentDidMount () {
     const budgetItems = await readBudgetItems(JSON.stringify({ budgetId: this.props.budgetId }))
     this.setState({ budgetData: budgetItems })
     this.setState({ budgetItems: budgetItems.BudgetItems })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <this.BudgetDetails
           budgetTotal={`${this.state.budgetData.budgetTotal}`}
           totalByPayPeriod={`${this.state.budgetData.totalByPayPeriod}`}
+          pre15Total={`${this.state.budgetData.pre15Total}`}
+          post15Total={`${this.state.budgetData.post15Total}`}
           numberOfDaysUntilNextPay={`${this.state.budgetData.numberOfDaysUntilNextPay}`}
           dailyBudget={`${this.state.budgetData.dailyBudget}`}
           bankBalance={`${this.state.budgetData.bankBalance}`}
           estimatedMonthlyDailySpending={`${this.state.budgetData.estimatedMonthlyDailySpending}`}
           expectedIncome={`${this.state.budgetData.expectedIncome}`}
           pendingItemBalance={`${this.state.budgetData.pendingItemBalance}`}
-
+          
         />
         <p onClick={this.props.beginCreateBudgetItem}>Create BudgetItem</p>
         {this.state.budgetItems.map((item) => (
