@@ -65,7 +65,7 @@ class ReadBudget extends React.Component {
           estimatedMonthlyDailySpending={`${this.state.budgetData.estimatedMonthlyDailySpending}`}
           expectedIncome={`${this.state.budgetData.expectedIncome}`}
           pendingItemBalance={`${this.state.budgetData.pendingItemBalance}`}
-          
+
         />
         <p onClick={this.props.beginCreateBudgetItem}>Create BudgetItem</p>
         {this.state.budgetItems.map((item) => (
