@@ -55,7 +55,10 @@ export async function createBudgetItem (obj) {
   const json = JSON.stringify(obj)
   const response = await fetch('http://localhost:3000/createBudgetItem', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json', 
+      'Authorization': obj.jwt
+    },
     body: json
   })
   const data = await response.json()
