@@ -1,6 +1,7 @@
 export async function createBudget (obj) {
   const json = JSON.stringify(obj)
-  const response = await fetch('http://localhost:3000/createBudget', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/createBudget', {
+    mode: 'no-cors',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: json
@@ -10,7 +11,8 @@ export async function createBudget (obj) {
 }
 
 export async function readBudgets (userId) {
-  const response = await fetch('http://localhost:3000/readBudgets', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/readBudgets', {
+    mode: 'no-cors',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: userId
@@ -20,7 +22,8 @@ export async function readBudgets (userId) {
 }
 
 export async function readBudget (id) {
-  const response = await fetch('http://localhost:3000/readBudget', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/readBudget', {
+    mode: 'no-cors',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: id
@@ -31,7 +34,8 @@ export async function readBudget (id) {
 
 export async function readBudgetItem (obj) {
   const json = JSON.stringify(obj)
-  const response = await fetch('http://localhost:3000/readBudgetItem', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/readBudgetItem', {
+    mode: 'no-cors',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: json
@@ -42,7 +46,8 @@ export async function readBudgetItem (obj) {
 
 export async function updateBudget (obj) {
   const json = JSON.stringify(obj)
-  const response = await fetch('http://localhost:3000/updateBudget', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/updateBudget', {
+    mode: 'no-cors',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: json
@@ -53,11 +58,12 @@ export async function updateBudget (obj) {
 
 export async function createBudgetItem (obj) {
   const json = JSON.stringify(obj)
-  const response = await fetch('http://localhost:3000/createBudgetItem', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/createBudgetItem', {
+    mode: 'no-cors',
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json', 
-      'Authorization': obj.jwt
+      'Content-Type': 'application/json',
+      Authorization: obj.jwt
     },
     body: json
   })
@@ -66,7 +72,8 @@ export async function createBudgetItem (obj) {
 }
 
 export async function readBudgetItems (budgetId) {
-  const response = await fetch('http://localhost:3000/readBudgetItems', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/readBudgetItems', {
+    mode: 'no-cors',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: budgetId
@@ -79,7 +86,8 @@ export async function readBudgetItems (budgetId) {
 
 export async function updateBudgetItem (obj) {
   const json = JSON.stringify(obj)
-  const response = await fetch('http://localhost:3000/updateBudgetItem', {
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/updateBudgetItem', {
+    mode: 'no-cors',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: json
