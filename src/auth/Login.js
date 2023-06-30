@@ -35,10 +35,11 @@ class Login extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    let userId
+    let token
     login({ username: this.state.username, password: this.state.password }).then((response) => {
-      userId = response.userId
-      this.props.handleLogin(userId)
+      console.log(response)
+      token = response.token.AuthenticationResult.IdToken
+      this.props.handleLogin(token)
     })
   }
 

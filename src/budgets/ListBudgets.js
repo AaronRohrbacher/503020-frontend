@@ -16,13 +16,13 @@ class ListBudgets extends React.Component {
   }
 
   async componentDidMount () {
-    const budgets = await readBudgets(JSON.stringify({ userId: this.props.userId }))
+    const budgets = await readBudgets({ userId: this.props.userId, token: this.props.token })
     this.setState({ budgets })
   }
 
   async componentDidUpdate (previousState) {
     if (previousState.data !== this.state.data) {
-      const budgets = await readBudgets(JSON.stringify({ userId: this.props.userId })).then(() => {
+      const budgets = await readBudgets({ userId: this.props.userId }).then(() => {
         this.setState({
           budgets
         })

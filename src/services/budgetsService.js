@@ -10,12 +10,17 @@ export async function createBudget (obj) {
   return data
 }
 
-export async function readBudgets (userId) {
+export async function readBudgets (obj) {
+  console.log(obj.token)
   const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/readBudgets', {
-    mode: 'no-cors',
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: userId
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: obj.token
+    },
+    body: JSON.stringify({
+      userId: '1a'
+    })
   })
   const data = await response.json()
   return data.Items
@@ -80,7 +85,6 @@ export async function readBudgetItems (budgetId) {
   })
 
   const data = await response.json()
-  console.log(data.totalByPayperiod)
   return data
 }
 

@@ -18,7 +18,7 @@ class Budget extends React.Component {
       budgetId: null,
       budgetItemId: null,
       submitted: null,
-      userId: null,
+      token: null,
       creatingBudgetItem: null,
       updatingBudgetItem: null,
       budgets: []
@@ -35,7 +35,7 @@ class Budget extends React.Component {
   beginCreateBudget = () => {
     this.setState({
       creatingBudget: true,
-      userId: this.state.userId
+      token: this.state.token
     })
   }
 
@@ -91,23 +91,23 @@ class Budget extends React.Component {
     })
   }
 
-  handleLogin = (userId) => {
+  handleLogin = (token) => {
     this.setState({
       creatingUser: false,
-      userId
+      token
     })
   }
 
   render () {
     return (
       <div>
-        {!this.state.userId && <Login handleLogin={this.handleLogin} />}
-        {this.state.userId && !this.state.creatingBudget && !this.state.viewingBudget && !this.state.updatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} userId={this.state.userId} handleViewBudget={this.handleViewBudget} beginUpdateBudget={this.beginUpdateBudget} />}
-        {this.state.creatingBudget && <CreateBudget userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />}
+        {!this.state.token && <Login handleLogin={this.handleLogin} />}
+        {this.state.token && !this.state.creatingBudget && !this.state.viewingBudget && !this.state.updatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} token={this.state.token} handleViewBudget={this.handleViewBudget} beginUpdateBudget={this.beginUpdateBudget} />}
+        {this.state.creatingBudget && <CreateBudget token={this.state.token} handleCreateBudget={this.handleCreateBudget} />}
         {this.state.viewingBudget && !this.state.creatingBudgetItem && !this.state.updatingBudgetItem && <ReadBudget budgetId={this.state.budgetId} beginCreateBudgetItem={this.beginCreateBudgetItem} beginUpdateBudgetItem={this.beginUpdateBudgetItem} />}
-        {this.state.creatingBudgetItem && <CreateBudgetItem userId={this.state.userId} handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
-        {this.state.updatingBudget && <UpdateBudget budgetId={this.state.budgetId} userId={this.state.userId} handleUpdateBudget={this.handleUpdateBudget} />}
-        {this.state.updatingBudgetItem && <UpdateBudgetItem budgetId={this.state.budgetId} budgetItemId={this.state.budgetItemId} userId={this.state.userId} handleUpdateBudgetItem={this.handleUpdateBudgetItem} />}
+        {this.state.creatingBudgetItem && <CreateBudgetItem token={this.state.token} handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
+        {this.state.updatingBudget && <UpdateBudget budgetId={this.state.budgetId} token={this.state.token} handleUpdateBudget={this.handleUpdateBudget} />}
+        {this.state.updatingBudgetItem && <UpdateBudgetItem budgetId={this.state.budgetId} budgetItemId={this.state.budgetItemId} token={this.state.token} handleUpdateBudgetItem={this.handleUpdateBudgetItem} />}
       </div>
     )
   }
