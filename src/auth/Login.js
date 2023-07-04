@@ -3,6 +3,7 @@ import { login } from '../services/usersService'
 import { render } from '@testing-library/react'
 import ListBudgets from '../budgets/ListBudgets'
 import Budget from '../budgets/Budget'
+import Cookies from 'js-cookie'
 
 class Login extends React.Component {
   constructor (props) {
@@ -41,6 +42,12 @@ class Login extends React.Component {
       token = response.token.AuthenticationResult.IdToken
       this.props.handleLogin(token)
     })
+  }
+
+  componentDidMount () {
+    if (Cookies.get('token')) {
+      this.props.handleLogin(Cookies.get('token'))
+    }
   }
 
   renderForm () {

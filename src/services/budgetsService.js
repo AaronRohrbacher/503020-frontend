@@ -1,4 +1,5 @@
 export async function createBudget (obj) {
+  console.log(obj)
   const json = JSON.stringify(obj)
   const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/createBudget', {
     method: 'POST',
@@ -13,6 +14,7 @@ export async function createBudget (obj) {
 }
 
 export async function readBudgets (obj) {
+  console.log(obj)
   const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/readBudgets', {
     method: 'POST',
     headers: {
@@ -20,7 +22,7 @@ export async function readBudgets (obj) {
       Authorization: obj.token
     },
     body: JSON.stringify({
-      userId: '1a'
+      userId: obj.userId
     })
   })
   const data = await response.json()

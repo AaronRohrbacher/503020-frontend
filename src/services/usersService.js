@@ -16,5 +16,9 @@ export async function login (obj) {
     headers: { 'Content-Type': 'application/json' },
     body: json
   })
-  return response.json()
+  const responseJson = await response.json()
+  console.log(await responseJson)
+
+  document.cookie = `token=${responseJson.token.AuthenticationResult.IdToken}`
+  return responseJson
 }
