@@ -1,9 +1,11 @@
 export async function createBudget (obj) {
   const json = JSON.stringify(obj)
   const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/createBudget', {
-    mode: 'no-cors',
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: obj.token
+    },
     body: json
   })
   const data = await response.json()
@@ -11,7 +13,6 @@ export async function createBudget (obj) {
 }
 
 export async function readBudgets (obj) {
-  console.log(obj.token)
   const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/readBudgets', {
     method: 'POST',
     headers: {
