@@ -55,7 +55,8 @@ class UpdateBudgetItem extends React.Component {
       budgetId: this.props.budgetId,
       cost: this.state.cost,
       dueDate: this.state.dueDate,
-      pending: this.state.pending
+      pending: this.state.pending,
+      token: this.props.token
     }).then(() => {
       this.props.handleUpdateBudgetItem()
       this.setState({
@@ -65,7 +66,7 @@ class UpdateBudgetItem extends React.Component {
   }
 
   async componentDidMount () {
-    const budgetItem = await readBudgetItem(JSON.stringify({ id: this.props.budgetItemId, budgetId: this.props.budgetId })).then((response) => {
+    const budgetItem = await readBudgetItem({ id: this.props.budgetItemId, budgetId: this.props.budgetId, token: this.props.token }).then((response) => {
       this.setState({
         name: response[0].name,
         cost: response[0].cost,

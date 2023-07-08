@@ -44,7 +44,12 @@ class UpdateBudget extends React.Component {
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
     updateBudget({
-      budgetName: this.state.name, id: this.props.budgetId, userId: this.props.userId, currentBankBalance: this.state.currentBankBalance, expectedPaycheckAmount: this.state.expectedPaycheckAmount
+      budgetName: this.state.name,
+      id: this.props.budgetId,
+      userId: this.props.userId,
+      currentBankBalance: this.state.currentBankBalance,
+      expectedPaycheckAmount: this.state.expectedPaycheckAmount,
+      token: this.props.token
     }).then(() => {
       this.props.handleUpdateBudget()
       this.setState({
@@ -55,7 +60,8 @@ class UpdateBudget extends React.Component {
   }
 
   async componentDidMount () {
-    const budget = await readBudget(JSON.stringify({ id: this.props.budgetId })).then((response) => {
+    const budget = await readBudget({ id: this.props.budgetId, token: this.props.token }).then((response) => {
+      console.log(response)
       this.setState({
         name: response[0].budgetName,
         currentBankBalance: response[0].currentBankBalance,

@@ -42,7 +42,14 @@ class CreateBudgetItem extends React.Component {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
-    createBudgetItem({ name: this.state.name, budgetId: this.props.budgetId, cost: this.state.cost, dueDate: this.state.dueDate, pending: false }).then(() => {
+    createBudgetItem({
+      name: this.state.name,
+      budgetId: this.props.budgetId,
+      cost: this.state.cost,
+      dueDate: this.state.dueDate,
+      pending: false,
+      token: this.props.token
+    }).then(() => {
       this.props.handleCreateBudgetItem()
       this.setState({
         creatingBudgetItem: false,
