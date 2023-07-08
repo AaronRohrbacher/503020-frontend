@@ -48,7 +48,6 @@ class ReadBudget extends React.Component {
   async componentDidMount () {
     const budgetItems = await readBudgetItems({ budgetId: this.props.budgetId, token: this.props.token }).then((response) => {
       console.log(response)
-      debugger
       this.setState({ budgetData: response })
       this.setState({ budgetItems: response.BudgetItems })
     })

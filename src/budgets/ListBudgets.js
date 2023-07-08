@@ -33,7 +33,7 @@ class ListBudgets extends React.Component {
   Budget = ({ budgetName, budgetId }) => (
     <div>
       <div>
-        <p onClick={() => { this.props.handleViewBudget(budgetId) }}>{budgetName}{budgetId}</p><p onClick={() => { this.props.beginUpdateBudget(budgetId) }} >EDIT</p>
+        <p onClick={() => { this.props.handleViewBudget(budgetId) }}>{budgetName}{budgetId}</p><p onClick={() => { this.props.beginUpdateBudget(budgetId) }} >EDIT</p><p onClick={() => { this.deleteBudget(budgetId) }}>DELETE</p>
       </div>
     </div>
   )
