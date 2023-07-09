@@ -41,7 +41,6 @@ class ListBudgets extends React.Component {
   render () {
     return (
       <div>
-
         <p onClick={this.props.beginCreateBudget}>Create Budget</p>
         {this.state.budgets.map((budget) => (
           <this.Budget

@@ -8,9 +8,11 @@ import CreateBudgetItem from './CreateBudgetItem'
 import UpdateBudget from './UpdateBudget'
 import UpdateBudgetItem from './UpdateBudgetItem'
 import jwt_decode from 'jwt-decode'
+import { BrowserRouter, Route, Routes, Switch, Navigate } from 'react-router-dom';
+
 
 class Budget extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       creatingBudget: null,
@@ -100,11 +102,17 @@ class Budget extends React.Component {
     })
   }
 
-  render () {
+  render() {
     return (
       <div>
-        {!this.state.token && <Login handleLogin={this.handleLogin} />}
-        {this.state.token && !this.state.creatingBudget && !this.state.viewingBudget && !this.state.updatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} token={this.state.token} userId={this.state.userId} handleViewBudget={this.handleViewBudget} beginUpdateBudget={this.beginUpdateBudget} />}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={!this.state.token && <Login handleLogin={this.handleLogin} token={this.state.token} />}>
+              <Route path="/listBudgets" element={this.state.token && !this.state.creatingBudget && !this.state.viewingBudget && !this.state.updatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} token={this.state.token} userId={this.state.userId} handleViewBudget={this.handleViewBudget} beginUpdateBudget={this.beginUpdateBudget} />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+
         {this.state.creatingBudget && <CreateBudget token={this.state.token} userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />}
         {this.state.viewingBudget && !this.state.creatingBudgetItem && !this.state.updatingBudgetItem && <ReadBudget budgetId={this.state.budgetId} beginCreateBudgetItem={this.beginCreateBudgetItem} beginUpdateBudgetItem={this.beginUpdateBudgetItem} token={this.state.token} />}
         {this.state.creatingBudgetItem && <CreateBudgetItem token={this.state.token} handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}

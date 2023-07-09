@@ -1,7 +1,7 @@
 import React from 'react'
 import { login } from '../services/usersService'
 import { render } from '@testing-library/react'
-import ListBudgets from '../budgets/ListBudgets'
+// import ListBudgets from '../budgets/ListBudgets'
 import Budget from '../budgets/Budget'
 import Cookies from 'js-cookie'
 
@@ -42,6 +42,7 @@ class Login extends React.Component {
       token = response.token.AuthenticationResult.IdToken
       this.props.handleLogin(token)
     })
+    
   }
 
   componentDidMount () {
@@ -52,7 +53,10 @@ class Login extends React.Component {
 
   renderForm () {
     return (
+
       <div>
+              {this.props.token && <Navigate to="/listBudgets" />}
+
         <div className="form-group">
           <form onSubmit={this.handleSubmit}>
 
