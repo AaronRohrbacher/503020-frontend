@@ -8,11 +8,10 @@ import CreateBudgetItem from './CreateBudgetItem'
 import UpdateBudget from './UpdateBudget'
 import UpdateBudgetItem from './UpdateBudgetItem'
 import jwt_decode from 'jwt-decode'
-import { BrowserRouter, Route, Routes, Switch, Navigate } from 'react-router-dom';
-
+import { BrowserRouter, Route, Routes, Switch, Navigate } from 'react-router-dom'
 
 class Budget extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       creatingBudget: null,
@@ -102,9 +101,10 @@ class Budget extends React.Component {
     })
   }
 
-  render() {
+  render () {
     return (
       <div>
+
         <BrowserRouter>
           <Routes>
             <Route path="/" element={!this.state.token && <Login handleLogin={this.handleLogin} token={this.state.token} />}>
@@ -118,6 +118,10 @@ class Budget extends React.Component {
         {this.state.creatingBudgetItem && <CreateBudgetItem token={this.state.token} handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
         {this.state.updatingBudget && <UpdateBudget budgetId={this.state.budgetId} userId={this.state.userId} token={this.state.token} handleUpdateBudget={this.handleUpdateBudget} />}
         {this.state.updatingBudgetItem && <UpdateBudgetItem budgetId={this.state.budgetId} budgetItemId={this.state.budgetItemId} token={this.state.token} handleUpdateBudgetItem={this.handleUpdateBudgetItem} />}
+        {this.props.token &&
+          <Navigate to="/listBudgets" replace={true} />
+        }
+
       </div>
     )
   }

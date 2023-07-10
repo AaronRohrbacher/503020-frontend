@@ -42,7 +42,6 @@ class Login extends React.Component {
       token = response.token.AuthenticationResult.IdToken
       this.props.handleLogin(token)
     })
-    
   }
 
   componentDidMount () {
@@ -55,7 +54,7 @@ class Login extends React.Component {
     return (
 
       <div>
-              {this.props.token && <Navigate to="/listBudgets" />}
+        {this.props.token && <Navigate to="/listBudgets" />}
 
         <div className="form-group">
           <form onSubmit={this.handleSubmit}>
