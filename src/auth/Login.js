@@ -6,7 +6,7 @@ import Budget from '../budgets/Budget'
 import Cookies from 'js-cookie'
 
 class Login extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       username: '',
@@ -18,21 +18,21 @@ class Login extends React.Component {
   }
 
   // Use the submitted data to set the state
-  handleUsernameChange (event) {
+  handleUsernameChange(event) {
     const { name, value } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  handlePasswordChange (event) {
+  handlePasswordChange(event) {
     const { name, value } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  handleSubmit (event) {
+  handleSubmit(event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
@@ -44,18 +44,15 @@ class Login extends React.Component {
     })
   }
 
-  componentDidMount () {
-    if (Cookies.get('token')) {
-      this.props.handleLogin(Cookies.get('token'))
-    }
+  componentDidMount() {
+    // if (Cookies.get('token')) {
+    //   this.props.handleLogin(Cookies.get('token'))
+    // }
   }
 
-  renderForm () {
+  renderForm() {
     return (
-
       <div>
-        {this.props.token && <Navigate to="/listBudgets" />}
-
         <div className="form-group">
           <form onSubmit={this.handleSubmit}>
 
@@ -79,18 +76,17 @@ class Login extends React.Component {
               value={this.state.password} // Prop: The email input data
               onChange={this.handlePasswordChange} // Prop: Puts data into state
             />
-
             <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>
-
           </form>
         </div>
       </div>
     )
   }
 
-  render () {
+  render() {
     return (
       <>
+
         {this.renderForm()}
       </>
     )
