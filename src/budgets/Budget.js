@@ -8,10 +8,10 @@ import CreateBudgetItem from './CreateBudgetItem'
 import UpdateBudget from './UpdateBudget'
 import UpdateBudgetItem from './UpdateBudgetItem'
 import jwt_decode from 'jwt-decode'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 class Budget extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       creatingBudget: null,
@@ -24,7 +24,8 @@ class Budget extends React.Component {
       creatingBudgetItem: null,
       updatingBudgetItem: null,
       budgets: [],
-      userId: null
+      userId: null,
+      loginMounted: null
     }
     this.handleCreateBudget = this.handleCreateBudget.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
@@ -97,27 +98,26 @@ class Budget extends React.Component {
     this.setState({
       creatingUser: false,
       token,
-      userId: jwt_decode(token).sub
+      userId: jwt_decode(token).sub,
+      loginMounted: true
     })
-    // window.location.replace('/budgets')
   }
 
-  render() {
+  render () {
     return (
       <div>
         <BrowserRouter>
-        <Routes>
-        <Route path='/' element={!this.state.token && <Login handleLogin={this.handleLogin} token={this.state.token} />}>
-          <Route path='/budgets' element={this.state.token && !this.state.creatingBudget && !this.state.viewingBudget && !this.state.updatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} token={this.state.token} userId={this.state.userId} handleViewBudget={this.handleViewBudget} beginUpdateBudget={this.beginUpdateBudget} />} />
-        </Route>
-        </Routes>
+          <Routes>
+            <Route path="/" element={!this.state.token && <Login handleLogin={this.handleLogin} token={this.state.token} />} >
+              <Route path="/budgets" element={this.state.token && !this.state.creatingBudget && !this.state.viewingBudget && !this.state.updatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} token={this.state.token} userId={this.state.userId} handleViewBudget={this.handleViewBudget} beginUpdateBudget={this.beginUpdateBudget} />} />
+            </Route>
+          </Routes>
         </BrowserRouter>
         {this.state.creatingBudget && <CreateBudget token={this.state.token} userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />}
         {this.state.viewingBudget && !this.state.creatingBudgetItem && !this.state.updatingBudgetItem && <ReadBudget budgetId={this.state.budgetId} beginCreateBudgetItem={this.beginCreateBudgetItem} beginUpdateBudgetItem={this.beginUpdateBudgetItem} token={this.state.token} />}
         {this.state.creatingBudgetItem && <CreateBudgetItem token={this.state.token} handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
         {this.state.updatingBudget && <UpdateBudget budgetId={this.state.budgetId} userId={this.state.userId} token={this.state.token} handleUpdateBudget={this.handleUpdateBudget} />}
         {this.state.updatingBudgetItem && <UpdateBudgetItem budgetId={this.state.budgetId} budgetItemId={this.state.budgetItemId} token={this.state.token} handleUpdateBudgetItem={this.handleUpdateBudgetItem} />}
-
       </div>
     )
   }

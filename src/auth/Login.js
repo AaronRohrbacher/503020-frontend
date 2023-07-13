@@ -4,13 +4,15 @@ import { render } from '@testing-library/react'
 // import ListBudgets from '../budgets/ListBudgets'
 import Budget from '../budgets/Budget'
 import Cookies from 'js-cookie'
+import { Navigate } from 'react-router-dom'
 
 class Login extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      mounted: true
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
@@ -18,21 +20,21 @@ class Login extends React.Component {
   }
 
   // Use the submitted data to set the state
-  handleUsernameChange(event) {
+  handleUsernameChange (event) {
     const { name, value } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  handlePasswordChange(event) {
+  handlePasswordChange (event) {
     const { name, value } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  handleSubmit(event) {
+  handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
     event.key === 'Submit' && event.preventDefault()
@@ -44,13 +46,13 @@ class Login extends React.Component {
     })
   }
 
-  componentDidMount() {
-    // if (Cookies.get('token')) {
-    //   this.props.handleLogin(Cookies.get('token'))
-    // }
+  componentDidMount () {
+    if (Cookies.get('token')) {
+      this.props.handleLogin(Cookies.get('token'))
+    }
   }
 
-  renderForm() {
+  renderForm () {
     return (
       <div>
         <div className="form-group">
@@ -83,12 +85,11 @@ class Login extends React.Component {
     )
   }
 
-  render() {
+  render () {
     return (
-      <>
-
+      <div>
         {this.renderForm()}
-      </>
+      </div>
     )
   }
 }
