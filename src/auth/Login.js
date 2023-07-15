@@ -12,7 +12,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      mounted: true
+      mounted: null
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)

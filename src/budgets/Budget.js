@@ -108,12 +108,37 @@ class Budget extends React.Component {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={!this.state.token && <Login handleLogin={this.handleLogin} token={this.state.token} />} >
-              <Route path="/budgets" element={this.state.token && !this.state.creatingBudget && !this.state.viewingBudget && !this.state.updatingBudget && <ListBudgets beginCreateBudget={this.beginCreateBudget} budgets={this.state.budgets} token={this.state.token} userId={this.state.userId} handleViewBudget={this.handleViewBudget} beginUpdateBudget={this.beginUpdateBudget} />} />
-            </Route>
+            <Route
+              path="/"
+              element={
+                this.state.token ? <Navigate to="/budgets" replace={true} /> : <Login handleLogin={this.handleLogin} token={this.state.token} />
+              }
+            />
+            <Route
+              path="/budgets"
+              element={
+                !this.state.creatingBudget
+                  ? <ListBudgets
+                    beginCreateBudget={this.beginCreateBudget}
+                    budgets={this.state.budgets}
+                    token={this.state.token}
+                    userId={this.state.userId}
+                    handleViewBudget={this.handleViewBudget}
+                    beginUpdateBudget={this.beginUpdateBudget}
+                  />
+                  : <Navigate to="/createBudget" replace={true} />
+              }
+            />
+            <Route
+              path="/createBudget"
+              element={
+                this.state.creatingBudget
+                  ? <CreateBudget token={this.state.token} userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />
+                  : <Navigate to="/budgets" replace={true} />
+              }
+            />
           </Routes>
         </BrowserRouter>
-        {this.state.creatingBudget && <CreateBudget token={this.state.token} userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />}
         {this.state.viewingBudget && !this.state.creatingBudgetItem && !this.state.updatingBudgetItem && <ReadBudget budgetId={this.state.budgetId} beginCreateBudgetItem={this.beginCreateBudgetItem} beginUpdateBudgetItem={this.beginUpdateBudgetItem} token={this.state.token} />}
         {this.state.creatingBudgetItem && <CreateBudgetItem token={this.state.token} handleCreateBudgetItem={this.handleCreateBudgetItem} budgetId={this.state.budgetId} />}
         {this.state.updatingBudget && <UpdateBudget budgetId={this.state.budgetId} userId={this.state.userId} token={this.state.token} handleUpdateBudget={this.handleUpdateBudget} />}
