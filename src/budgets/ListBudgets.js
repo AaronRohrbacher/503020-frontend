@@ -4,6 +4,7 @@ import ReadBudget from './readBudget'
 import CreateBudget from './CreateBudget'
 import Login from '../auth/Login'
 import UpdateBudget from './UpdateBudget'
+import { Link } from 'react-router-dom'
 
 class ListBudgets extends React.Component {
   constructor (props) {
@@ -20,14 +21,15 @@ class ListBudgets extends React.Component {
     this.setState({ budgets })
   }
 
-  async componentDidUpdate (previousState) {
-    if (previousState.budgets !== this.state.budgets) {
-      const budgets = await readBudgets({ userId: this.props.userId }).then(() => {
-        this.setState({
-          budgets
-        })
-      })
+  async componentDidUpdate (prevProps) {
+    if (prevProps.budgets !== this.props.budgets) {
+      await this.updateBudgets()
     }
+  }
+
+  async updateBudgets () {
+    const budgets = await readBudgets({ userId: this.props.userId, token: this.props.token })
+    this.setState({ budgets })
   }
 
   Budget = ({ budgetName, budgetId }) => (
@@ -41,7 +43,7 @@ class ListBudgets extends React.Component {
   render () {
     return (
       <div>
-        <p onClick={this.props.beginCreateBudget}>Create Budget</p>
+        <Link to="/createBudget" replace={true}>CREATE</Link>
         {this.state.budgets.map((budget) => (
           <this.Budget
             budgetName={`${budget.budgetName}`}

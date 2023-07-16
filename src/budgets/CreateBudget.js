@@ -2,6 +2,7 @@ import React from 'react'
 import { createBudget } from '../services/budgetsService'
 import { render } from '@testing-library/react'
 import ListBudgets from './ListBudgets'
+import { Navigate } from 'react-router-dom'
 
 class CreateBudget extends React.Component {
   constructor (props) {
@@ -107,6 +108,7 @@ class CreateBudget extends React.Component {
     return (
       <>
         {!this.state.submitted === true && this.renderForm()}
+        {this.state.submitted === true && <Navigate to="/budgets" replace={true} />}
       </>
     )
   }

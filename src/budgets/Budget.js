@@ -117,24 +117,20 @@ class Budget extends React.Component {
             <Route
               path="/budgets"
               element={
-                !this.state.creatingBudget
-                  ? <ListBudgets
-                    beginCreateBudget={this.beginCreateBudget}
-                    budgets={this.state.budgets}
-                    token={this.state.token}
-                    userId={this.state.userId}
-                    handleViewBudget={this.handleViewBudget}
-                    beginUpdateBudget={this.beginUpdateBudget}
-                  />
-                  : <Navigate to="/createBudget" replace={true} />
+                <ListBudgets
+                  beginCreateBudget={this.beginCreateBudget}
+                  budgets={this.state.budgets}
+                  token={this.state.token}
+                  userId={this.state.userId}
+                  handleViewBudget={this.handleViewBudget}
+                  beginUpdateBudget={this.beginUpdateBudget}
+                />
               }
             />
             <Route
               path="/createBudget"
               element={
-                this.state.creatingBudget
-                  ? <CreateBudget token={this.state.token} userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />
-                  : <Navigate to="/budgets" replace={true} />
+                  <CreateBudget token={this.state.token} userId={this.state.userId} handleCreateBudget={this.handleCreateBudget} />
               }
             />
           </Routes>
