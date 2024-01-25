@@ -13,8 +13,7 @@ class ReadBudget extends React.Component {
   BudgetItem = ({ budgetItem, cost, dueDate, budgetItemId, pending }) => (
     <div>
       <div>
-        <p>{budgetItem}{budgetItemId}</p>
-        <p>{cost} {dueDate}</p>
+        <p>{budgetItem}  {cost} {dueDate}</p>
         <p onClick={() => { this.props.beginUpdateBudgetItem(budgetItemId) }} >EDIT</p>
         <p onClick={() => {deleteBudgetItem({id: budgetItemId})}}>DELETE</p>
         {pending === 'true' && <p>PENDING</p>}
@@ -70,7 +69,7 @@ class ReadBudget extends React.Component {
           pendingItemBalance={`${this.state.budgetData.pendingItemBalance}`}
 
         />
-        <p onClick={this.props.beginCreateBudgetItem}>Create BudgetItem</p>
+        <button onClick={this.props.beginCreateBudgetItem}>New Budget Item</button>
         {this.state.budgetItems.map((item) => (
           <this.BudgetItem
             budgetItem={`${item.name}`}
