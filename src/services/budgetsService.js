@@ -116,3 +116,32 @@ export async function updateBudgetItem (obj) {
   const data = await response.json()
   return data
 }
+
+export async function deleteBudget (obj) {
+  const json = JSON.stringify(obj)
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/deleteBudget', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: obj.token
+    },
+    body: json
+  })
+  const data = await response.json()
+  return data
+}
+
+export async function deleteBudgetItem (obj) {
+  const json = JSON.stringify(obj)
+  const response = await fetch(process.env.REACT_APP_BASE_API_URL + '/deleteBudgetItem', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: obj.token
+    },
+    body: json
+  })
+  const data = await response.json()
+  return data
+}
+

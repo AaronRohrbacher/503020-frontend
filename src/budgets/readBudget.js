@@ -1,5 +1,5 @@
 import React from 'react'
-import { readBudgetItems } from '../services/budgetsService'
+import { deleteBudgetItem, readBudgetItems } from '../services/budgetsService'
 
 class ReadBudget extends React.Component {
   constructor (props) {
@@ -16,6 +16,7 @@ class ReadBudget extends React.Component {
         <p>{budgetItem}{budgetItemId}</p>
         <p>{cost} {dueDate}</p>
         <p onClick={() => { this.props.beginUpdateBudgetItem(budgetItemId) }} >EDIT</p>
+        <p onClick={() => {deleteBudgetItem({id: budgetItemId})}}>DELETE</p>
         {pending === 'true' && <p>PENDING</p>}
       </div>
     </div>
