@@ -136,42 +136,42 @@ class Budget extends React.Component {
             />
           </Routes>
         </BrowserRouter>
-        {
-          this.state.viewingBudget &&
-          !this.state.creatingBudgetItem &&
-          !this.state.updatingBudgetItem &&
-          <ReadBudget
-            budgetId={this.state.budgetId}
-            beginCreateBudgetItem={this.beginCreateBudgetItem}
-            beginUpdateBudgetItem={this.beginUpdateBudgetItem}
-            token={this.state.token}
-          />
-        }
-        {
-          this.state.creatingBudgetItem &&
-          <CreateBudgetItem token={this.state.token}
-            handleCreateBudgetItem={this.handleCreateBudgetItem}
-            budgetId={this.state.budgetId} />
-        }
-        {
-          this.state.updatingBudget &&
-          <UpdateBudget
-            budgetId={this.state.budgetId}
-            userId={this.state.userId}
-            token={this.state.token}
-            handleUpdateBudget={this.handleUpdateBudget}
-          />
-        }
-        {
-          this.state.updatingBudgetItem &&
-          <UpdateBudgetItem
-            budgetId={this.state.budgetId}
-            budgetItemId={this.state.budgetItemId}
-            token={this.state.token}
-            handleUpdateBudgetItem={this.handleUpdateBudgetItem}
-          />
-        }
-      </div>
+            {
+              this.state.viewingBudget &&
+              !this.state.creatingBudgetItem &&
+              !this.state.updatingBudgetItem &&
+              <ReadBudget
+                budgetId={this.state.budgetId}
+                beginCreateBudgetItem={this.beginCreateBudgetItem}
+                beginUpdateBudgetItem={this.beginUpdateBudgetItem}
+                token={this.state.token}
+              />
+            }
+          {
+            this.state.creatingBudgetItem &&
+            <CreateBudgetItem token={this.state.token}
+              handleCreateBudgetItem={this.handleCreateBudgetItem}
+              budgetId={this.state.budgetId} />
+          }
+          {
+            this.state.updatingBudget &&
+            <UpdateBudget
+              budgetId={this.state.budgetId}
+              userId={this.state.userId}
+              token={this.state.token}
+              handleUpdateBudget={this.handleUpdateBudget}
+            />
+          }
+          {
+            this.state.updatingBudgetItem &&
+            <UpdateBudgetItem
+              budgetId={this.state.budgetId}
+              budgetItemId={this.state.budgetItemId}
+              token={this.state.token}
+              handleUpdateBudgetItem={this.handleUpdateBudgetItem}
+            />
+          }
+          </div>
     )
   }
 }
