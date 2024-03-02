@@ -10,13 +10,14 @@ class ReadBudget extends React.Component {
     }
   }
 
-  BudgetItem = ({ budgetItem, cost, dueDate, budgetItemId, pending }) => (
+  BudgetItem = ({ budgetItem, cost, dueDate, budgetItemId, pending, paid }) => (
     <div>
       <div>
         <p>{budgetItem}  {cost} {dueDate}</p>
         <p onClick={() => { this.props.beginUpdateBudgetItem(budgetItemId) }} >EDIT</p>
         <p onClick={() => {deleteBudgetItem({id: budgetItemId})}}>DELETE</p>
         {pending === 'true' && <p>PENDING</p>}
+        {paid === 'true' && <p>PAID</p>}
       </div>
     </div>
   )
@@ -78,6 +79,8 @@ class ReadBudget extends React.Component {
             key={`${item.id}`}
             budgetItemId={`${item.id}`}
             pending={`${item.pending}`}
+            paid={`${item.paid}`}
+
           />
         ))}
       </div>

@@ -8,13 +8,16 @@ class UpdateBudgetItem extends React.Component {
       name: '',
       dueDate: '',
       cost: '',
-      pending: false
+      pending: false,
+      paid: false
     }
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeCost = this.handleChangeCost.bind(this)
     this.handleChangeDueDate = this.handleChangeDueDate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChangePendingChecked = this.handleChangePendingChecked.bind(this)
+    this.handleChangePaidChecked = this.handleChangePaidChecked.bind(this)
+
   }
 
   handleChangeName (event) {
@@ -45,6 +48,14 @@ class UpdateBudgetItem extends React.Component {
     })
   }
 
+  handleChangePaidChecked (event) {
+    const { name, value } = event.target
+    this.setState({
+      [name]: !this.state.paid
+    })
+  }
+
+
   handleSubmit (event) {
     event.preventDefault()
     event.key === 'Enter' && event.preventDefault()
@@ -56,6 +67,7 @@ class UpdateBudgetItem extends React.Component {
       cost: this.state.cost,
       dueDate: this.state.dueDate,
       pending: this.state.pending,
+      paid: this.state.paid,
       token: this.props.token
     }).then(() => {
       this.props.handleUpdateBudgetItem()
@@ -71,7 +83,8 @@ class UpdateBudgetItem extends React.Component {
         name: response[0].name,
         cost: response[0].cost,
         dueDate: response[0].dueDate,
-        pending: response[0].pending
+        pending: response[0].pending,
+        paid: response[0].paid
       })
     })
   }
@@ -114,6 +127,9 @@ class UpdateBudgetItem extends React.Component {
             />
             <label htmlFor="pending">pending:</label>
             <input onChange={this.handleChangePendingChecked} name="pending" checked={this.state.pending} style ={{ defaultChecked: this.state.pending }} type="checkbox" />
+            <label htmlFor="paid">paid:</label>
+            <input onChange={this.handleChangePaidChecked} name="paid" checked={this.state.paid} style ={{ defaultChecked: this.state.paid }} type="checkbox" />
+
             <button type="button" onClick={this.handleSubmit} className="btn btn-success btn-block">Submit</button>
           </form>
         </div>
