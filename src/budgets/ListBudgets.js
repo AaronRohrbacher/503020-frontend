@@ -39,7 +39,7 @@ class ListBudgets extends React.Component {
             EDIT
           </button>
           <span>  </span>
-          <button onClick={() => { deleteBudget({ id: budgetId }) }}>
+          <button onClick={() => { deleteBudget({ id: budgetId, token: this.props.token }) }}>
             DELETE
           </button>
         </p>

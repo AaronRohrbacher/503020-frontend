@@ -13,7 +13,7 @@ class ReadBudget extends React.Component {
   BudgetItem = ({ budgetItem, cost, dueDate, budgetItemId, pending, paid }) => (
       <p>{budgetItem}  {cost} {dueDate}
         <button onClick={() => { this.props.beginUpdateBudgetItem(budgetItemId) }} >EDIT</button>
-        <button onClick={() => { deleteBudgetItem({ id: budgetItemId }) }}>DELETE</button>
+        <button onClick={() => { deleteBudgetItem({ id: budgetItemId, token: this.props.token }) }}>DELETE</button>
         {pending === 'true' && <span>PENDING&nbsp;</span>}
         {paid === 'true' && <span>PAID</span>}
       </p>
