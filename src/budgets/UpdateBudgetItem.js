@@ -65,7 +65,7 @@ class UpdateBudgetItem extends React.Component {
       id: this.props.budgetItemId,
       budgetId: this.props.budgetId,
       cost: this.state.cost,
-      dueDate: this.state.dueDate,
+      dueDate: parseInt(this.state.dueDate),
       pending: this.state.pending,
       paid: this.state.paid,
       token: this.props.token

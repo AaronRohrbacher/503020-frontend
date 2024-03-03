@@ -46,7 +46,7 @@ class CreateBudgetItem extends React.Component {
       name: this.state.name,
       budgetId: this.props.budgetId,
       cost: this.state.cost,
-      dueDate: this.state.dueDate,
+      dueDate: parseInt(this.state.dueDate),
       pending: false,
       token: this.props.token
     }).then(() => {
