@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint '**/*.js' --fix",
-    "deploy": "npm run build && aws s3 sync build/ s3://bludget",
+    "deploy": "npm run build && aws s3 sync build/ s3://bludget.com",
     "postdeploy": "aws cloudfront create-invalidation --distribution-id E3VN7JDVRY7JVJ --paths '/*'"
   },
   "browserslist": {
